@@ -19,7 +19,7 @@ Next.js + TypeScript プロジェクト。
 | フレームワーク | **Next.js 14** |
 | 言語 | **TypeScript** |
 | パッケージ管理 | **pnpm** |
-| スタイル/UI | **Tailwind CSS |
+| スタイル/UI | **Tailwind CSS** |
 | デプロイ | **Vercel** |
 
 ---
