@@ -32,8 +32,8 @@ app/
  ├─ layout.tsx         # 共通レイアウト
  ├─ components/        # UIコンポーネント群
  ├─ lib/               # ユーティリティ関数
- └─ styles/            # グ
-
+ └─ styles/            # グローバルCSS
+```
 ---
 
 ## 🚀 開発環境セットアップ
