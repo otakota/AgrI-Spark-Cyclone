@@ -52,13 +52,8 @@ const MemberRowSchema = z.object({
 
 export const agriFormSchema = z.object({
   //基本情報
-  name: z
-    .string()
-    .min(1, '名前は必須です'),
-  kana: z
-    .string()
-    .min(1, '名前（カナ）は必須です')
-    .regex(/^[ァ-ヶー　]+$/, '全角カタカナで入力してください'),
+  name: z.string().min(1, '名前は必須です'),
+  kana: z.string().min(1, '名前（カナ）は必須です').regex(/^[ァ-ヶー　]+$/, '全角カタカナで入力してください'),
   applicationDate: z.string().min(1, "必須"),
   mayor: z.string().min(1, "必須"),
   applicantAddress: z.string().min(1, "必須"),

@@ -50,7 +50,7 @@ export default function ContactForm () {
             {/* 基本情報 */}
             <Card>
               <CardHeader><CardTitle>青年等就農計画認定申請書（基本情報）</CardTitle></CardHeader>
-              <CardContent className="grid gap-4 md:grid-cols-1">
+              <CardContent className="grid gap-4 md:grid-cols-3">
 
                 <FormField control={form.control} name="name" render={({ field }) => (
                     <FormItem>
