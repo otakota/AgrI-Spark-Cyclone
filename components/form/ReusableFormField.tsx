@@ -19,6 +19,7 @@ interface ReusableTextareaFieldProps {
   name: string;
   label: string;
   placeholder?: string;
+  className?: string;
   rows?: number; // Textarea 特有の行数を設定可能にする
   // ... その他必要な Textarea props
 }
@@ -54,6 +55,7 @@ export const ReusableTextareaField: React.FC<ReusableTextareaFieldProps> = ({
   name,
   label,
   placeholder,
+  className,
   rows,
 }) => {
   return (
@@ -61,7 +63,7 @@ export const ReusableTextareaField: React.FC<ReusableTextareaFieldProps> = ({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className={className}>
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <Textarea

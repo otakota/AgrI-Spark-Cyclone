@@ -50,6 +50,11 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           <ConfirmItem label="就農地（市町村名）" value={data.farmCity} />
           <ConfirmItem label="農業経営開始日" value={data.businessStartDate} />
           <ConfirmItem label="就農形態" value={data.farmingType} />
+          <ConfirmItem label="継承範囲" value={data.inheritScope} />
+          <ConfirmItem label="従事期間（年）" value={data.inheritPeriodYears} />
+          <ConfirmItem label="従事期間（月）" value={data.inheritPeriodMonths} />
+          <ConfirmItem label="目標とする営農類型" value={data.targetFarmingType} />
+          <ConfirmItem label="将来の農業経営の構想" value={data.futurePlan} />
         </div>
 
         {/* ボタンセクション */}

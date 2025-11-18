@@ -30,7 +30,12 @@ const formSchema = z.object({
   //就業計画
   farmCity: z.string().min(1, { message: "必須" }),
   businessStartDate: z.string().min(1, { message: "必須" }),
-  farmingType: z.string().nonempty({ message: "就農形態を選択してください"})
+  farmingType: z.string().nonempty({ message: "就農形態を選択してください"}),
+  inheritScope: z.string().nonempty({ message: "必須"}),
+  inheritPeriodYears: z.string().min(1, { message: "必須" }),
+  inheritPeriodMonths: z.string().min(1, { message: "必須" }),
+  targetFarmingType: z.string().min(1, { message: "必須" }), //テキスト形式にしているが選択できるようにする？
+  futurePlan: z.string().min(1, { message: "必須" }),
 })
 
 export type FormValues = z.output<typeof formSchema>; 
@@ -64,6 +69,11 @@ export default function ProfileForm() {
       farmCity: "",
       businessStartDate: "",
       farmingType: "",
+      inheritScope: "",
+      inheritPeriodYears: "",
+      inheritPeriodMonths: "",
+      targetFarmingType: "",
+      futurePlan: "",
     }
   })
 
