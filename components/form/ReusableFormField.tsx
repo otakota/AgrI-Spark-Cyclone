@@ -4,15 +4,11 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input"; 
 
 interface ReusableFormFieldProps {
-  // form.controlを渡すために必要
   control: Control<any>;
-  // formのスキーマにおけるフィールド名
   name: string;
-  // <FormLabel>に表示するテキスト
   label: string;
-  // <Input>のtype属性（デフォルトはtext）
+  placeholder?: string;
   type?: string;
-  // <Input>に渡す追加のプロパティ（placeholderなど）
   // ... any ではなく、適切な型定義を推奨しますが、ここでは簡略化します
   // inputProps?: React.ComponentProps<typeof Input>; 
 }
@@ -21,6 +17,7 @@ export const ReusableFormField: React.FC<ReusableFormFieldProps> = ({
   control,
   name,
   label,
+  placeholder,
   type = "text",
 }) => {
   return (
@@ -32,7 +29,7 @@ export const ReusableFormField: React.FC<ReusableFormFieldProps> = ({
           <FormLabel>{label}</FormLabel>
           <FormControl>
             {/* type属性を設定し、field.valueがnullまたはundefinedの場合は空文字列を設定 */}
-            <Input type={type} {...field} value={field.value ?? ""} />
+            <Input placeholder={placeholder} type={type} {...field} value={field.value ?? ""} />
           </FormControl>
           <FormMessage />
         </FormItem>

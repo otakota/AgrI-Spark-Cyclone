@@ -11,9 +11,22 @@ import { InputStep } from "@/components/form/InputStep";
 import { ConfirmStep } from "@/components/form/ConfirmStep"; 
 
 const formSchema = z.object({
+  //基本情報
   name: z.string().min(1, { message: "名前を入力してください" }),
-  kana: z.string().min(1, { message: "カナを入力してください" }), 
-  applicationDate: z.string().optional(), 
+  applicationDate: z.string().min(1, { message: "申請日を入力してください"}), //日付と月と都市の間に「-」が入った形で登録される
+  mayor: z.string().min(1, { message: "必須"}),
+  applicantAddress:z.string().min(1, { message: "必須" }),
+  applicantName: z.string().min(1, { message: "必須" }),
+  birthDate: z.string().min(1, { message: "必須" }),
+  age: z.string().min(1, { message: "必須"}),
+  corpEstablishedDate:z.string().optional(),
+  //経歴
+  jobdetails: z.string().min(1, { message: "必須" }),
+  companyname: z.string().min(1, { message: "必須" }),
+  companystartdate: z.string().min(1, { message: "必須" }),
+  companyenddate: z.string().min(1, { message: "必須" }),
+  companyAdress: z.string().min(1, { message: "必須" }),
+  retirementDate: z.string().min(1, { message: "必須" }),
 })
 
 export type FormValues = z.output<typeof formSchema>; 
@@ -26,8 +39,20 @@ export default function ProfileForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      kana: "",
       applicationDate: "",
+      mayor: "",
+      applicantAddress: "",
+      applicantName: "",
+      birthDate: "",
+      age: "",
+      corpEstablishedDate: "",
+      //経歴
+      jobdetails: "",
+      companyname: "",
+      companystartdate: "",
+      companyenddate:"",
+      companyAdress: "",
+      retirementDate: "",
     }
   })
 
@@ -42,7 +67,6 @@ export default function ProfileForm() {
     if (formData) {
       console.log("最終送信データ:", formData);
       alert("申請を送信しました！");
-      // 完了後、リダイレクトやステップ1へ戻るなどの処理
     }
   }
 
