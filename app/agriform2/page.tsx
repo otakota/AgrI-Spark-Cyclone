@@ -11,11 +11,11 @@ import { ConfirmStep } from "@/components/form/ConfirmStep";
 const formSchema = z.object({
   //基本情報
   name: z.string().min(1, { message: "名前を入力してください" }),
+  birthDate: z.string().min(1, { message: "必須" }),
   applicationDate: z.string().min(1, { message: "申請日を入力してください"}), //日付と月と都市の間に「-」が入った形で登録される
   mayor: z.string().min(1, { message: "必須"}),
   applicantAddress:z.string().min(1, { message: "必須" }),
   applicantName: z.string().min(1, { message: "必須" }),
-  birthDate: z.string().min(1, { message: "必須" }),
   age: z.string().min(1, { message: "必須"}),
   corpEstablishedDate:z.string().optional(),
   //経歴
@@ -54,11 +54,11 @@ export default function ProfileForm() {
     defaultValues: {
       //基本情報
       name: "",
+      birthDate: "",
       applicationDate: "",
       mayor: "",
       applicantAddress: "",
       applicantName: "",
-      birthDate: "",
       age: "",
       corpEstablishedDate: "",
       //経歴
@@ -102,7 +102,7 @@ export default function ProfileForm() {
   }
 
   return (
-    <div className='container mx-auto px-15 py-30'>
+    <div className='container mx-auto px-60 py-30'>
       <Form {...form}>
         {/* ステップに応じてコンポーネントを切り替える */}
         {step === 1 ? (

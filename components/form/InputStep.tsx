@@ -19,13 +19,13 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
       <Card>
         <CardHeader><CardTitle>青年等就農計画認定申請書（基本情報）</CardTitle></CardHeader>
         <CardContent className="grid gap-4 md:grid-cols-3">
-          <ReusableFormField name="name"               label="名前"  placeholder="山田 太郎" control={form.control}/>
-          <ReusableFormField name="applicationDate"     label="申請日"  type="date" control={form.control} />
-          <ReusableFormField name="mayor"               label="市長"  placeholder="例：○○市長 殿" control={form.control}  />
-          <ReusableFormField name="applicantAddress"    label="申請者住所"  placeholder="○○県○○市○丁目○-○" control={form.control} />
-          <ReusableFormField name="applicantName"       label="氏名（名称・代表者）"  placeholder="農林 太郎" control={form.control} />
+          <ReusableFormField name="name"               label="名前"  placeholder="山田 太郎" control={form.control} className="md:col-span-3"/>
           <ReusableFormField name="birthDate"           label="生年月日"  type="date" control={form.control} />
           <ReusableFormField name="age"                 label="年齢" type="number" control={form.control} />
+          <ReusableFormField name="applicationDate"     label="申請日"  type="date" control={form.control} />
+          <ReusableFormField name="applicantName"       label="氏名（名称・代表者）"  placeholder="農林 太郎" control={form.control} className="md:col-span-3" />
+          <ReusableFormField name="mayor"               label="市長"  placeholder="例：○○市長 殿" control={form.control} className="md:col-span-3" />
+          <ReusableFormField name="applicantAddress"    label="申請者住所"  placeholder="○○県○○市○丁目○-○" control={form.control} className="md:col-span-3" />
           <ReusableFormField name="corpEstablishedDate" label="法人設立年月日（法人の場合のみ）" type="date" control={form.control}  />
         </CardContent>
       </Card>
@@ -34,14 +34,14 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
       <Card>
         <CardHeader><CardTitle>経歴</CardTitle></CardHeader>
         <CardContent className="grid gap-4 md:grid-cols-2">
-          <ReusableFormField name="jobdetails" label="職務内容" control={form.control}  />
-          <ReusableFormField name="companyname" label="勤務機関名" placeholder="株式会社○○" control={form.control} />
-          <ReusableFormField name="companystartdate" label="勤務期間開始日" type="date" control={form.control} />
-          <ReusableFormField name="companyenddate" label="勤務期間終了日" type="date" control={form.control} />
-          <ReusableFormField name="companyAdress" label="勤務機関住所"  placeholder="○○県○○市○丁目○-○" control={form.control} />
-          <ReusableFormField name="retirementDate" label="退職年月日"  type="date" control={form.control} />
-          <ReusableTextareaField name="qualification" label="資格" rows={4} className="md:col-span-3"  control={form.control} />
-          <ReusableTextareaField name="skillAgricultural" label="農業経営に活用できる知識および技能の内容" rows={4} className="md:col-span-3" control={form.control} />
+          <ReusableFormField name="jobdetails" label="職務内容" control={form.control} className="md:col-span-2" />
+          <ReusableFormField name="companyname" label="勤務機関名" placeholder="株式会社○○" control={form.control} className="md:col-span-2" />
+          <ReusableFormField name="companyAdress" label="勤務機関住所"  placeholder="○○県○○市○丁目○-○" control={form.control} className="md:col-span-2" />
+          <ReusableFormField name="companystartdate" label="勤務期間開始日" type="date" control={form.control}  />
+          <ReusableFormField name="companyenddate" label="勤務期間終了日" type="date" control={form.control}  />
+          <ReusableFormField name="retirementDate" label="退職年月日"  type="date" control={form.control}  />
+          <ReusableTextareaField name="qualification" label="資格" rows={4} className="md:col-span-2"  control={form.control} />
+          <ReusableTextareaField name="skillAgricultural" label="農業経営に活用できる知識および技能の内容" rows={4} className="md:col-span-2" control={form.control} />
         </CardContent>
       </Card>
 

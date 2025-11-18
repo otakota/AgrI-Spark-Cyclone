@@ -9,6 +9,7 @@ interface ReusableFormFieldProps {
   name: string;
   label: string;
   placeholder?: string;
+  className?: string;
   type?: string;
   // ... any ではなく、適切な型定義を推奨しますが、ここでは簡略化します
   // inputProps?: React.ComponentProps<typeof Input>; 
@@ -29,6 +30,7 @@ export const ReusableFormField: React.FC<ReusableFormFieldProps> = ({
   name,
   label,
   placeholder,
+  className,
   type = "text",
 }) => {
   return (
@@ -36,7 +38,7 @@ export const ReusableFormField: React.FC<ReusableFormFieldProps> = ({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className={className} >
           <FormLabel>{label}</FormLabel>
           <FormControl>
             {/* type属性を設定し、field.valueがnullまたはundefinedの場合は空文字列を設定 */}

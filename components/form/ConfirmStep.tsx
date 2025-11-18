@@ -18,12 +18,12 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
         <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
           <h2 className="text-xl font-bold">基本情報</h2>
           <ConfirmItem label="名前" value={data.name} />
-          <ConfirmItem label="申請日" value={data.applicationDate} />
-          <ConfirmItem label="市長" value={data.mayor} />
-          <ConfirmItem label="申請者住所" value={data.applicantAddress} />
-          <ConfirmItem label="氏名（名称・代表者）" value={data.applicantName} />
           <ConfirmItem label="生年月日" value={data.birthDate} />
           <ConfirmItem label="年齢" value={data.age} />
+          <ConfirmItem label="申請日" value={data.applicationDate} />
+          <ConfirmItem label="氏名（名称・代表者）" value={data.applicantName} />
+          <ConfirmItem label="市長" value={data.mayor} />
+          <ConfirmItem label="申請者住所" value={data.applicantAddress} />
           <ConfirmItem label="法人設立年月日（法人の場合のみ）" value={data.corpEstablishedDate || "未入力"} />
         </div>
         
@@ -34,9 +34,9 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           <h2 className="text-xl font-bold">経歴</h2>
           <ConfirmItem label="職務内容" value={data.jobdetails} />
           <ConfirmItem label="勤務機関名" value={data.companyname} />
+          <ConfirmItem label="勤務機関住所" value={data.companyAdress} />
           <ConfirmItem label="勤務期間開始日" value={data.companystartdate} />
           <ConfirmItem label="勤務期間終了日" value={data.companyenddate} />
-          <ConfirmItem label="勤務機関住所" value={data.companyAdress} />
           <ConfirmItem label="退職年月日" value={data.retirementDate} />
           <ConfirmItem label="資格" value={data.qualification || "未入力"} />
           <ConfirmItem label="農業経営に活用できる知識および技能の内容" value={data.skillAgricultural || "未入力"} />
@@ -60,8 +60,8 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
         {/* 経営の構想セクション */}
         <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
           <h2 className="text-xl font-bold">経営の構想</h2>
-          <ConfirmItem label="年間農業所得" value={data.incomeCurrent} />
-          <ConfirmItem label="年間労働時間" value={data.hoursCurrent} />
+          <ConfirmItem label="年間農業所得" value={data.incomeCurrent || "未入力"}  />
+          <ConfirmItem label="年間労働時間" value={data.hoursCurrent || "未入力"} />
           <ConfirmItem label="年間農業所得" value={data.incomeTarget} />
           <ConfirmItem label="年間労働時間" value={data.hoursTarget} />
         </div>
