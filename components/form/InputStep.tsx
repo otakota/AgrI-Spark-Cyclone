@@ -3,7 +3,7 @@ import { FormValues } from "@/app/agriform2/page";
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from "@/components/ui/button";
-import { ReusableFormField } from "@/components/form/ReusableFormField";
+import { ReusableFormField, ReusableTextareaField } from "@/components/form/ReusableFormField";
 
 interface InputStepProps {
   form: UseFormReturn<FormValues>;
@@ -35,6 +35,7 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
           <ReusableFormField control={form.control} name="companyenddate" label="勤務期間終了日" type="date" />
           <ReusableFormField control={form.control} name="companyAdress" label="勤務機関住所" placeholder="○○県○○市○丁目○-○" />
           <ReusableFormField control={form.control} name="retirementDate" label="退職年月日" type="date" />
+          <ReusableTextareaField control={form.control} name="qualification" label="資格" rows={4} />
         </CardContent>
       </Card>
       

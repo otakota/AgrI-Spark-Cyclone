@@ -30,7 +30,7 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
         
         <hr className="my-6 border-gray-300 dark:border-gray-700" />
         
-        {/* 👨‍💻 経歴セクション */}
+        {/* 経歴セクション */}
         <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
           <h2 className="text-xl font-bold">経歴</h2>
           <ConfirmItem label="職務内容" value={data.jobdetails} />
@@ -39,6 +39,7 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           <ConfirmItem label="勤務期間終了日" value={data.companyenddate} />
           <ConfirmItem label="勤務機関住所" value={data.companyAdress} />
           <ConfirmItem label="退職年月日" value={data.retirementDate} />
+          <ConfirmItem label="資格" value={data.qualification} />
         </div>
         
         {/* ボタンセクション */}
