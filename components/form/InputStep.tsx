@@ -3,6 +3,9 @@ import { FormValues } from "@/app/agriform2/page";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from "@/components/ui/button";
 import { ReusableFormField, ReusableTextareaField } from "@/components/form/ReusableFormField";
+import { FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescription } from "@/components/ui/form";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+
 
 interface InputStepProps {
   form: UseFormReturn<FormValues>;
@@ -43,6 +46,20 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
         <CardContent className="grid gap-4 md:grid-cols-2">
           <ReusableFormField control={form.control} name="farmCity" label="就農地（市町村名）" placeholder="○○市" />
           <ReusableFormField control={form.control} name="businessStartDate" label="農業経営開始日" type="date" />
+          <FormField control={form.control} name="farmingType" render={({ field }) => (
+                <FormItem className="md:col-span-3">
+                  <FormLabel>就農形態</FormLabel>
+                  <FormControl>
+                    <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                      <div className="flex items-center gap-2"><RadioGroupItem value="新たに農業経営を開始" id="t1" /><label htmlFor="t1">新たに農業経営を開始</label></div>
+                      <div className="flex items-center gap-2"><RadioGroupItem value="親の経営とは別に新部門" id="t2" /><label htmlFor="t2">親の経営とは別に新部門</label></div>
+                      <div className="flex items-center gap-2"><RadioGroupItem value="親の農業経営を継承" id="t3" /><label htmlFor="t3">親の農業経営を継承</label></div>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormDescription>継承の場合は以下も入力</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )} /> 
         </CardContent>
       </Card>
       

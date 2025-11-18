@@ -30,6 +30,7 @@ const formSchema = z.object({
   //就業計画
   farmCity: z.string().min(1, { message: "必須" }),
   businessStartDate: z.string().min(1, { message: "必須" }),
+  farmingType: z.string().nonempty({ message: "就農形態を選択してください"})
 })
 
 export type FormValues = z.output<typeof formSchema>; 
@@ -62,6 +63,7 @@ export default function ProfileForm() {
       //就業計画
       farmCity: "",
       businessStartDate: "",
+      farmingType: "",
     }
   })
 

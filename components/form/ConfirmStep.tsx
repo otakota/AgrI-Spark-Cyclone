@@ -49,6 +49,7 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           <h2 className="text-xl font-bold">就業計画</h2>
           <ConfirmItem label="就農地（市町村名）" value={data.farmCity} />
           <ConfirmItem label="農業経営開始日" value={data.businessStartDate} />
+          <ConfirmItem label="就農形態" value={data.farmingType} />
         </div>
 
         {/* ボタンセクション */}

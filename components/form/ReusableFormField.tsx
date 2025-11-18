@@ -1,6 +1,6 @@
 // components/ReusableFormField.tsx
 import { Control } from "react-hook-form";
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form"; // ui/form などのパスは適宜調整してください
+import { FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescription } from "@/components/ui/form"; // ui/form などのパスは適宜調整してください
 import { Input } from "@/components/ui/input"; 
 import { Textarea } from "@/components/ui/textarea"; 
 
