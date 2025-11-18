@@ -28,6 +28,7 @@ const formSchema = z.object({
   companyAdress: z.string().min(1, { message: "必須" }),
   retirementDate: z.string().min(1, { message: "必須" }),
   qualification: z.string().max(255, { message: "255文字以内で記入してください"}).optional(),
+  skillAgricultural: z.string().max(255, { message: "255文字以内で記入してください"}).optional(),
 })
 
 export type FormValues = z.output<typeof formSchema>; 
@@ -55,6 +56,7 @@ export default function ProfileForm() {
       companyAdress: "",
       retirementDate: "",
       qualification: "",
+      skillAgricultural: "",
     }
   })
 

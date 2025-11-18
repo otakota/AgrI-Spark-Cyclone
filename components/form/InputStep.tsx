@@ -36,6 +36,7 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
           <ReusableFormField control={form.control} name="companyAdress" label="勤務機関住所" placeholder="○○県○○市○丁目○-○" />
           <ReusableFormField control={form.control} name="retirementDate" label="退職年月日" type="date" />
           <ReusableTextareaField control={form.control} name="qualification" label="資格" rows={4} />
+          <ReusableTextareaField control={form.control} name="skillAgricultural" label="農業経営に活用できる知識および技能の内容" rows={4} />
         </CardContent>
       </Card>
       

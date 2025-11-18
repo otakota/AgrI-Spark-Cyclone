@@ -25,7 +25,7 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           <ConfirmItem label="氏名（名称・代表者）" value={data.applicantName} />
           <ConfirmItem label="生年月日" value={data.birthDate} />
           <ConfirmItem label="年齢" value={data.age} />
-          <ConfirmItem label="法人設立年月日（法人の場合のみ）" value={data.corpEstablishedDate} />
+          <ConfirmItem label="法人設立年月日（法人の場合のみ）" value={data.corpEstablishedDate || "未入力"} />
         </div>
         
         <hr className="my-6 border-gray-300 dark:border-gray-700" />
@@ -39,7 +39,8 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           <ConfirmItem label="勤務期間終了日" value={data.companyenddate} />
           <ConfirmItem label="勤務機関住所" value={data.companyAdress} />
           <ConfirmItem label="退職年月日" value={data.retirementDate} />
-          <ConfirmItem label="資格" value={data.qualification} />
+          <ConfirmItem label="資格" value={data.qualification || "未入力"} />
+          <ConfirmItem label="農業経営に活用できる知識および技能の内容" value={data.skillAgricultural || "未入力"} />
         </div>
         
         {/* ボタンセクション */}
@@ -60,6 +61,6 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
 const ConfirmItem: React.FC<{ label: string, value: string | undefined }> = ({ label, value }) => (
   <div>
     <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">{label}</p>
-    <p className="text-base font-semibold">{value}</p>
+    <p className="text-base font-semibold ">{value}</p>
   </div>
 );
