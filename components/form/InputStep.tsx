@@ -15,6 +15,7 @@ interface InputStepProps {
 export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+
       <Card>
         <CardHeader><CardTitle>青年等就農計画認定申請書（基本情報）</CardTitle></CardHeader>
         <CardContent className="grid gap-4 md:grid-cols-3">
@@ -28,6 +29,8 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
           <ReusableFormField name="corpEstablishedDate" label="法人設立年月日（法人の場合のみ）" type="date" control={form.control}  />
         </CardContent>
       </Card>
+
+
       <Card>
         <CardHeader><CardTitle>経歴</CardTitle></CardHeader>
         <CardContent className="grid gap-4 md:grid-cols-2">
@@ -41,6 +44,8 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
           <ReusableTextareaField name="skillAgricultural" label="農業経営に活用できる知識および技能の内容" rows={4} className="md:col-span-3" control={form.control} />
         </CardContent>
       </Card>
+
+
       <Card>
         <CardHeader><CardTitle>就業計画</CardTitle></CardHeader>
         <CardContent className="grid gap-4 md:grid-cols-3">
@@ -77,6 +82,18 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
             <ReusableFormField name="inheritPeriodMonths" label="従事期間（月）" type="number" control={form.control} />
             <ReusableTextareaField name="targetFarmingType" label="目標とする営農類型" rows={2} placeholder="例：露地野菜" className="md:col-span-3" control={form.control}/>
             <ReusableTextareaField name="futurePlan" label="将来の農業経営の構想" rows={4} placeholder="将来像や目標（5年後目安）を記入" className="md:col-span-3" control={form.control} />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader><CardTitle>経営の構想（所得・労働時間）</CardTitle></CardHeader>
+        <CardContent className="grid gap-4 md:grid-cols-2">
+          <p className="font-bold md:col-span-2">現状</p>
+          <ReusableFormField name="incomeCurrent" label="年間農業所得（現状/千円）" control={form.control}  />
+          <ReusableFormField name="hoursCurrent"  label="年間労働時間（現状/時間）" control={form.control}  />
+          <p className="font-bold md:col-span-2">目標</p>
+          <ReusableFormField name="incomeTarget"  label="年間農業所得（目標/千円）" control={form.control}  />
+          <ReusableFormField name="hoursTarget"   label="年間労働時間（目標/時間）" control={form.control}  />
         </CardContent>
       </Card>
       
