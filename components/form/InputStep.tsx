@@ -1,6 +1,5 @@
 import { UseFormReturn } from "react-hook-form";
 import { FormValues } from "@/app/agriform2/page";
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from "@/components/ui/button";
 import { ReusableFormField, ReusableTextareaField } from "@/components/form/ReusableFormField";
@@ -37,6 +36,13 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
           <ReusableFormField control={form.control} name="retirementDate" label="退職年月日" type="date" />
           <ReusableTextareaField control={form.control} name="qualification" label="資格" rows={4} />
           <ReusableTextareaField control={form.control} name="skillAgricultural" label="農業経営に活用できる知識および技能の内容" rows={4} />
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader><CardTitle>就業計画</CardTitle></CardHeader>
+        <CardContent className="grid gap-4 md:grid-cols-2">
+          <ReusableFormField control={form.control} name="farmCity" label="就農地（市町村名）" placeholder="○○市" />
+          <ReusableFormField control={form.control} name="businessStartDate" label="農業経営開始日" type="date" />
         </CardContent>
       </Card>
       

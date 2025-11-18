@@ -1,4 +1,3 @@
-// components/form/ConfirmStep.tsx
 import { FormValues } from "@/app/agriform2/page"; // page.tsxから型をインポート
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from "@/components/ui/button";
@@ -42,7 +41,16 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           <ConfirmItem label="資格" value={data.qualification || "未入力"} />
           <ConfirmItem label="農業経営に活用できる知識および技能の内容" value={data.skillAgricultural || "未入力"} />
         </div>
-        
+
+        <hr className="my-6 border-gray-300 dark:border-gray-700" />
+
+        {/* 就業計画セクション */}
+        <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+          <h2 className="text-xl font-bold">就業計画</h2>
+          <ConfirmItem label="就農地（市町村名）" value={data.farmCity} />
+          <ConfirmItem label="農業経営開始日" value={data.businessStartDate} />
+        </div>
+
         {/* ボタンセクション */}
         <div className="flex gap-4 pt-4">
           <Button type="button" variant="outline" onClick={onBack}>

@@ -4,9 +4,7 @@ import { useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-
 import { Form } from "@/components/ui/form"
-
 import { InputStep } from "@/components/form/InputStep";     
 import { ConfirmStep } from "@/components/form/ConfirmStep"; 
 
@@ -29,6 +27,9 @@ const formSchema = z.object({
   retirementDate: z.string().min(1, { message: "必須" }),
   qualification: z.string().max(255, { message: "255文字以内で記入してください"}).optional(),
   skillAgricultural: z.string().max(255, { message: "255文字以内で記入してください"}).optional(),
+  //就業計画
+  farmCity: z.string().min(1, { message: "必須" }),
+  businessStartDate: z.string().min(1, { message: "必須" }),
 })
 
 export type FormValues = z.output<typeof formSchema>; 
@@ -40,6 +41,7 @@ export default function ProfileForm() {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      //基本情報
       name: "",
       applicationDate: "",
       mayor: "",
@@ -57,6 +59,9 @@ export default function ProfileForm() {
       retirementDate: "",
       qualification: "",
       skillAgricultural: "",
+      //就業計画
+      farmCity: "",
+      businessStartDate: "",
     }
   })
 
