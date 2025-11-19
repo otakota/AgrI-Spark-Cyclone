@@ -1,6 +1,7 @@
 import { FormValues } from "@/app/agriform2/page"; // page.tsxから型をインポート
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 interface ConfirmStepProps {
   data: FormValues;
@@ -9,6 +10,7 @@ interface ConfirmStepProps {
 }
 
 export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalSubmit }) => {
+  const hasCropsData = data.crops && data.crops.length > 0;
   return (
     <Card>
       <CardHeader><CardTitle>入力内容の確認</CardTitle></CardHeader>
@@ -64,6 +66,40 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           <ConfirmItem label="年間労働時間" value={data.hoursCurrent || "未入力"} />
           <ConfirmItem label="年間農業所得" value={data.incomeTarget} />
           <ConfirmItem label="年間労働時間" value={data.hoursTarget} />
+        </div>
+
+        {/* 農業経営の規模に関する目標セクション */}
+        <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+          <h2 className="text-xl font-bold">農業経営の規模に関する目標（作目・部門）</h2>
+          
+          {hasCropsData ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>作目・部門名</TableHead>
+                  <TableHead className="text-right">作付面積（現状/a）</TableHead>
+                  <TableHead className="text-right">生産量（現状/kg）</TableHead>
+                  <TableHead className="text-right">作付面積（目標/a）</TableHead>
+                  <TableHead className="text-right">生産量（目標/kg）</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.crops!.map((row, i) => (
+                  <TableRow key={i}>
+                    <TableCell className="font-medium">{row.name || "（未入力）"}</TableCell>
+                    {/* 数値データは文字列化し、未入力の場合は「-」を表示 */}
+                    <TableCell className="text-right">{row.areaCurrent != null ? row.areaCurrent.toString() : "-"}</TableCell>
+                    <TableCell className="text-right">{row.productionCurrent != null ? row.productionCurrent.toString() : "-"}</TableCell>
+                    <TableCell className="text-right">{row.areaTarget != null ? row.areaTarget.toString() : "-"}</TableCell>
+                    <TableCell className="text-right">{row.productionTarget != null ? row.productionTarget.toString() : "-"}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p className="text-gray-500">作目・部門の入力がありません。</p>
+          )}
+
         </div>
 
         {/* ボタンセクション */}

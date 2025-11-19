@@ -1,10 +1,12 @@
-import { UseFormReturn } from "react-hook-form";
+import { UseFormReturn, useFieldArray } from "react-hook-form";
 import { FormValues } from "@/app/agriform2/page";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from "@/components/ui/button";
 import { ReusableFormField, ReusableTextareaField } from "@/components/form/ReusableFormField";
 import { FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescription } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Input } from '@/components/ui/input';
 
 
 interface InputStepProps {
@@ -13,6 +15,7 @@ interface InputStepProps {
 }
 
 export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
+  const crops = useFieldArray({ control: form.control, name: "crops" });
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 
@@ -96,6 +99,50 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
           <ReusableFormField name="hoursTarget"   label="年間労働時間（目標/時間）" control={form.control}  />
         </CardContent>
       </Card>
+
+          <Card>
+            <CardHeader><CardTitle>農業経営の規模に関する目標（作目・部門）</CardTitle></CardHeader>
+            <CardContent className="space-y-3">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>作目・部門名</TableHead>
+                    <TableHead>作付面積（現状/a）</TableHead>
+                    <TableHead>生産量（現状/kg）</TableHead>
+                    <TableHead>作付面積（目標/a）</TableHead>
+                    <TableHead>生産量（目標/kg）</TableHead>
+                    <TableHead></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {crops.fields.map((row, i) => (
+                    <TableRow key={row.id}>
+                      <TableCell>
+                        <Input {...form.register(`crops.${i}.name` as const)} placeholder="例：タマネギ" />
+                      </TableCell>
+                      <TableCell>
+                        <Input type="number" min={0} {...form.register(`crops.${i}.areaCurrent` as const, { valueAsNumber: true })} />
+                      </TableCell>
+                      <TableCell>
+                        <Input type="number" min={0} {...form.register(`crops.${i}.productionCurrent` as const, { valueAsNumber: true })} />
+                      </TableCell>
+                      <TableCell>
+                        <Input type="number" min={0} {...form.register(`crops.${i}.areaTarget` as const, { valueAsNumber: true })} />
+                      </TableCell>
+                      <TableCell>
+                        <Input type="number" min={0} {...form.register(`crops.${i}.productionTarget` as const, { valueAsNumber: true })} />
+                      </TableCell>
+                      <TableCell>
+                        <Button type="button" variant="ghost" onClick={() => crops.remove(i)}>削除</Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <Button type="button" variant="secondary" onClick={() => crops.append({ name: "", areaCurrent: undefined, productionCurrent: undefined, areaTarget: undefined, productionTarget: undefined, })}>行を追加</Button>
+            </CardContent>
+          </Card>
+
       
       <Button type="submit">確認画面へ進む</Button>
     </form>

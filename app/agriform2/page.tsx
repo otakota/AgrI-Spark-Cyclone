@@ -8,6 +8,14 @@ import { Form } from "@/components/ui/form"
 import { InputStep } from "@/components/form/InputStep";     
 import { ConfirmStep } from "@/components/form/ConfirmStep"; 
 
+const CropRowSchema = z.object({
+  name: z.string().optional(), 
+  areaCurrent: z.number().nullable().optional(), 
+  productionCurrent: z.number().nullable().optional(), 
+  areaTarget: z.number().nullable().optional(), 
+  productionTarget: z.number().nullable().optional(), 
+});
+
 const formSchema = z.object({
   //基本情報
   name: z.string().min(1, { message: "名前を入力してください" }),
@@ -37,10 +45,12 @@ const formSchema = z.object({
   targetFarmingType: z.string().min(1, { message: "必須" }), //テキスト形式にしているが選択できるようにする？
   futurePlan: z.string().min(1, { message: "必須" }),
   //経営の構想
-  incomeCurrent: z.string().optional(),
-  hoursCurrent: z.string().optional(),
+  incomeCurrent: z.string().min(1, { message: "必須" }),
+  hoursCurrent: z.string().min(1, { message: "必須" }),
   incomeTarget: z.string().min(1, { message: "必須" }),  
   hoursTarget: z.string().min(1, { message: "必須" }),
+  //作物名、生産量など
+  crops: z.array(CropRowSchema).optional(),
 })
 
 export type FormValues = z.output<typeof formSchema>; 
@@ -84,8 +94,18 @@ export default function ProfileForm() {
       incomeTarget: "", 
       hoursCurrent: "", 
       hoursTarget: "", 
+      //作物
+      crops: [{
+        name: "",
+        areaCurrent: undefined,
+        productionCurrent: undefined,
+        areaTarget: undefined,
+        productionTarget: undefined,
+      }]
     }
   })
+
+  console.log(form.formState.errors);
 
   // 1. 入力画面からの送信（確認画面へ遷移）
   const handleInputSubmit = (values: FormValues) => {
