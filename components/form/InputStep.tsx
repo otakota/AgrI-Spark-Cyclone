@@ -240,7 +240,7 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
         <CardHeader><CardTitle>経営に関する目標</CardTitle></CardHeader>
         <CardContent className="grid gap-4">
           <ReusableTextareaField name="targetAgricultural" label="将来の農業経営の構想" rows={4} placeholder="例　青色申告の実施、PC活用による経理"  control={form.control} />
-          <ReusableTextareaField name="targetemployee" label="将来の農業経営の構想" rows={4} placeholder="例　月に○日程度を休日とする" control={form.control} />
+          <ReusableTextareaField name="targetemployee" label="農業従事の態様等に関する目標" rows={4} placeholder="例　月に○日程度を休日とする" control={form.control} />
         </CardContent>
       </Card>
       

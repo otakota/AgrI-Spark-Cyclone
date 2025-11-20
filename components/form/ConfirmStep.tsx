@@ -174,7 +174,7 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           )}
         </div>
 
-        {/* 就業計画セクション */}
+        {/* 経営に関する目標セクション */}
         <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
           <h2 className="text-xl font-bold">経営に関する目標</h2>
           <ConfirmItem label="将来の農業経営の構想" value={data.targetAgricultural} />
