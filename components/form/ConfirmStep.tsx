@@ -11,6 +11,8 @@ interface ConfirmStepProps {
 
 export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalSubmit }) => {
   const hasCropsData = data.crops && data.crops.length > 0;
+  const haslandData = data.lands && data.lands.length > 0;
+  const hasmachinesData = data.machines && data.machines.length > 0;
   return (
     <Card>
       <CardHeader><CardTitle>入力内容の確認</CardTitle></CardHeader>
@@ -77,10 +79,10 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
               <TableHeader>
                 <TableRow>
                   <TableHead>作目・部門名</TableHead>
-                  <TableHead className="text-right">作付面積（現状/a）</TableHead>
-                  <TableHead className="text-right">生産量（現状/kg）</TableHead>
-                  <TableHead className="text-right">作付面積（目標/a）</TableHead>
-                  <TableHead className="text-right">生産量（目標/kg）</TableHead>
+                  <TableHead>作付面積（現状/a）</TableHead>
+                  <TableHead>生産量（現状/kg）</TableHead>
+                  <TableHead>作付面積（目標/a）</TableHead>
+                  <TableHead>生産量（目標/kg）</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -88,10 +90,10 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
                   <TableRow key={i}>
                     <TableCell className="font-medium">{row.name || "（未入力）"}</TableCell>
                     {/* 数値データは文字列化し、未入力の場合は「-」を表示 */}
-                    <TableCell className="text-right">{row.areaCurrent != null ? row.areaCurrent.toString() : "-"}</TableCell>
-                    <TableCell className="text-right">{row.productionCurrent != null ? row.productionCurrent.toString() : "-"}</TableCell>
-                    <TableCell className="text-right">{row.areaTarget != null ? row.areaTarget.toString() : "-"}</TableCell>
-                    <TableCell className="text-right">{row.productionTarget != null ? row.productionTarget.toString() : "-"}</TableCell>
+                    <TableCell>{row.areaCurrent != null ? row.areaCurrent.toString() : "-"}</TableCell>
+                    <TableCell>{row.productionCurrent != null ? row.productionCurrent.toString() : "-"}</TableCell>
+                    <TableCell>{row.areaTarget != null ? row.areaTarget.toString() : "-"}</TableCell>
+                    <TableCell>{row.productionTarget != null ? row.productionTarget.toString() : "-"}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -99,7 +101,84 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           ) : (
             <p className="text-gray-500">作目・部門の入力がありません。</p>
           )}
+        </div>
 
+        {/* 農地面積 */}
+        <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+          <h2 className="text-xl font-bold">農地の面積（所有地/借入地）</h2>
+          
+          {haslandData ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>作目・部門名</TableHead>
+                  <TableHead>作付面積（現状/a）</TableHead>
+                  <TableHead>生産量（現状/kg）</TableHead>
+                  <TableHead>作付面積（目標/a）</TableHead>
+                  <TableHead>生産量（目標/kg）</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.lands!.map((row, i) => (
+                  <TableRow key={i}>
+                    <TableCell className="font-medium">{row.typeofCrops || "（未入力）"}</TableCell>
+                    <TableCell>{row.landType != null ? row.landType.toString() : "-"}</TableCell>
+                    <TableCell>{row.location != null ? row.location.toString() : "-"}</TableCell>
+                    <TableCell>{row.currentArea != null ? row.currentArea.toString() : "-"}</TableCell>
+                    <TableCell>{row.targetArea != null ? row.targetArea.toString() : "-"}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p className="text-gray-500">農地の面積（の入力がありません。</p>
+          )}
+        </div>
+
+        {/* 利用する機械 */}
+        <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+          <h2 className="text-xl font-bold">生産方式に関する目標（機械・施設）</h2>
+          
+          {hasmachinesData ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>機械・施設名</TableHead>
+                  <TableHead>現状（型式・台数）</TableHead>
+                  <TableHead>目標（型式・台数）</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.machines!.map((row, i) => (
+                  <TableRow key={i}>
+                    <TableCell className="font-medium">{row.name || "（未入力）"}</TableCell>
+                    <TableCell>
+                      <div className="grid grid-cols-3 gap-2">
+                        <div>{row.currentSpec != null ? row.currentSpec.toString() : "-"}</div>
+                        <div>{row.currentUnits != null ? row.currentUnits.toString() : "-"}</div>
+                      </div> 
+                    </TableCell>
+
+                    <TableCell>
+                      <div className="grid grid-cols-3 gap-2">
+                        <div>{row.targetSpec != null ? row.targetSpec.toString() : "-"}</div>
+                        <div>{row.targetUnits != null ? row.targetUnits.toString() : "-"}</div>
+                      </div> 
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p className="text-gray-500">生産方式に関する目標（の入力がありません。</p>
+          )}
+        </div>
+
+        {/* 就業計画セクション */}
+        <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+          <h2 className="text-xl font-bold">経営に関する目標</h2>
+          <ConfirmItem label="将来の農業経営の構想" value={data.targetAgricultural} />
+          <ConfirmItem label="農業従事の態様等に関する目標" value={data.targetemployee} />
         </div>
 
         {/* ボタンセクション */}

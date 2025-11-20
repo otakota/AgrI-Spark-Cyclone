@@ -19,6 +19,7 @@ const LandRowSchema = z.object({
   currentArea: z.string().optional(), //numberの型にできない z.coerce.number().nonnegative().default(0),
   targetArea: z.string().optional(), //numberの型にできない
 });
+
 //利用する機械
 const MachineRowSchema = z.object({
   name: z.string().min(1, "必須"),

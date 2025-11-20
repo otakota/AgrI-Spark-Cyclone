@@ -8,6 +8,7 @@ import { Form } from "@/components/ui/form"
 import { InputStep } from "@/components/form/InputStep";     
 import { ConfirmStep } from "@/components/form/ConfirmStep"; 
 
+//作物名、生産量など
 const CropRowSchema = z.object({
   name: z.string().optional(), 
   areaCurrent: z.number().nullable().optional(), 
@@ -16,11 +17,29 @@ const CropRowSchema = z.object({
   productionTarget: z.number().nullable().optional(), 
 });
 
+//農地面積
+const LandRowSchema = z.object({
+  typeofCrops: z.string().optional(),
+  landType: z.string().optional(),
+  location: z.string().optional(),
+  currentArea: z.number().optional(),
+  targetArea: z.number().optional(),
+});
+
+//利用する機械
+const MachineRowSchema = z.object({
+  name: z.string().optional(),
+  currentSpec: z.string().optional(), 
+  currentUnits: z.number().optional(), 
+  targetSpec: z.string().optional(), 
+  targetUnits: z.number().optional(), 
+});
+
 const formSchema = z.object({
   //基本情報
-  name: z.string().min(1, { message: "名前を入力してください" }),
+  name: z.string().min(1, { message: "必須" }),
   birthDate: z.string().min(1, { message: "必須" }),
-  applicationDate: z.string().min(1, { message: "申請日を入力してください"}), //日付と月と都市の間に「-」が入った形で登録される
+  applicationDate: z.string().min(1, { message: "必須"}), //日付と月と都市の間に「-」が入った形で登録される
   mayor: z.string().min(1, { message: "必須"}),
   applicantAddress:z.string().min(1, { message: "必須" }),
   applicantName: z.string().min(1, { message: "必須" }),
@@ -51,6 +70,12 @@ const formSchema = z.object({
   hoursTarget: z.string().min(1, { message: "必須" }),
   //作物名、生産量など
   crops: z.array(CropRowSchema).optional(),
+  lands: z.array(LandRowSchema).optional(),
+  machines: z.array(MachineRowSchema).optional(), 
+
+  //経営の構想
+  targetAgricultural: z.string().min(1, { message: "必須"}).max(255, { message: "255文字以内で記入してください"}),
+  targetemployee: z.string().min(1, { message: "必須"}).max(255, { message: "255文字以内で記入してください"}),
 })
 
 export type FormValues = z.output<typeof formSchema>; 
@@ -101,7 +126,25 @@ export default function ProfileForm() {
         productionCurrent: undefined,
         areaTarget: undefined,
         productionTarget: undefined,
-      }]
+      }],
+      //農地面積
+      lands: [{
+        typeofCrops: "",
+        landType: "",
+        location: "",
+        currentArea: undefined,
+        targetArea: undefined,
+      }],
+      machines: [{
+        name: "",
+        currentSpec: "",
+        currentUnits: undefined,
+        targetSpec: "",
+        targetUnits: undefined,
+      }],
+      //経営の構想
+      targetAgricultural: "",
+      targetemployee: "",
     }
   })
 

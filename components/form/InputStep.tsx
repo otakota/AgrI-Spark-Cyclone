@@ -8,7 +8,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from '@/components/ui/input';
 
-
 interface InputStepProps {
   form: UseFormReturn<FormValues>;
   onSubmit: (values: FormValues) => void;
@@ -16,6 +15,8 @@ interface InputStepProps {
 
 export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
   const crops = useFieldArray({ control: form.control, name: "crops" });
+  const lands = useFieldArray({ control: form.control, name: "lands" });
+  const machines = useFieldArray({ control: form.control, name: "machines" });
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 
@@ -100,6 +101,8 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
         </CardContent>
       </Card>
 
+          {/* 作物名と面積 */}
+
           <Card>
             <CardHeader><CardTitle>農業経営の規模に関する目標（作目・部門）</CardTitle></CardHeader>
             <CardContent className="space-y-3">
@@ -139,10 +142,107 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
                   ))}
                 </TableBody>
               </Table>
-              <Button type="button" variant="secondary" onClick={() => crops.append({ name: "", areaCurrent: undefined, productionCurrent: undefined, areaTarget: undefined, productionTarget: undefined, })}>行を追加</Button>
+              <Button type="button" variant="secondary" onClick={() => crops.append({ name: "", areaCurrent: undefined, productionCurrent: undefined, areaTarget: undefined, productionTarget: undefined })}>行を追加</Button>
             </CardContent>
           </Card>
 
+            
+       {/* 農地面積 */}
+
+          <Card>
+            <CardHeader><CardTitle>農地の面積（所有地/借入地）</CardTitle></CardHeader>
+            <CardContent className="space-y-3">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>区分</TableHead>
+                    <TableHead>地目</TableHead>
+                    <TableHead>所在地（市町村名）</TableHead>
+                    <TableHead>現状（a）</TableHead>
+                    <TableHead>目標（a）</TableHead>
+                    <TableHead></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {lands.fields.map((row, i) => (
+                    <TableRow key={row.id}>
+                      <TableCell>
+                        <Input {...form.register(`lands.${i}.typeofCrops` as const)} placeholder="所有地/借入地" />
+                      </TableCell>
+                      <TableCell>
+                        <Input {...form.register(`lands.${i}.landType` as const)} placeholder="畑・田など" />
+                      </TableCell>
+                      <TableCell>
+                        <Input {...form.register(`lands.${i}.location` as const)} placeholder="○○市△地区" />
+                      </TableCell>
+                      <TableCell>
+                        <Input type="number" min={0} {...form.register(`lands.${i}.currentArea` as const, { valueAsNumber: true })} />
+                      </TableCell>
+                      <TableCell>
+                        <Input type="number" min={0} {...form.register(`lands.${i}.targetArea` as const, { valueAsNumber: true })} />
+                      </TableCell>
+                      <TableCell>
+                        <Button type="button" variant="ghost" onClick={() => lands.remove(i)}>削除</Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <Button type="button" variant="secondary" onClick={() => lands.append({ typeofCrops: "所有地", landType: "畑", location: "", currentArea: undefined, targetArea: undefined })}>行を追加</Button>
+            </CardContent>
+          </Card>
+
+
+          {/* 利用する機械 */}
+
+          <Card>
+            <CardHeader><CardTitle>生産方式に関する目標（機械・施設）</CardTitle></CardHeader>
+            <CardContent className="space-y-3">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>機械・施設名</TableHead>
+                    <TableHead>現状（型式・台数）</TableHead>
+                    <TableHead>目標（型式・台数）</TableHead>
+                    <TableHead></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {machines.fields.map((row, i) => (
+                    <TableRow key={row.id}>
+                      <TableCell>
+                        <Input {...form.register(`machines.${i}.name` as const)} placeholder="トラクター" />
+                      </TableCell>
+                      <TableCell>
+                        <div className="grid grid-cols-3 gap-2">
+                          <Input className="col-span-2" placeholder="26馬力 等" {...form.register(`machines.${i}.currentSpec` as const)} />
+                          <Input type="number" min={0} placeholder="台" {...form.register(`machines.${i}.currentUnits` as const, { valueAsNumber: true })} />
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="grid grid-cols-3 gap-2">
+                          <Input className="col-span-2" placeholder="26馬力 等" {...form.register(`machines.${i}.targetSpec` as const)} />
+                          <Input type="number" min={0} placeholder="台" {...form.register(`machines.${i}.targetUnits` as const, { valueAsNumber: true })} />
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Button type="button" variant="ghost" onClick={() => machines.remove(i)}>削除</Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <Button type="button" variant="secondary" onClick={() => machines.append({ name: "", currentSpec: "", currentUnits: undefined, targetSpec: "", targetUnits: undefined })}>行を追加</Button>
+            </CardContent>
+          </Card>
+
+      <Card>
+        <CardHeader><CardTitle>経営に関する目標</CardTitle></CardHeader>
+        <CardContent className="grid gap-4">
+          <ReusableTextareaField name="targetAgricultural" label="将来の農業経営の構想" rows={4} placeholder="例　青色申告の実施、PC活用による経理"  control={form.control} />
+          <ReusableTextareaField name="targetemployee" label="将来の農業経営の構想" rows={4} placeholder="例　月に○日程度を休日とする" control={form.control} />
+        </CardContent>
+      </Card>
       
       <Button type="submit">確認画面へ進む</Button>
     </form>

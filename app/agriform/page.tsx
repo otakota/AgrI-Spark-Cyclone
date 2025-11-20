@@ -512,7 +512,7 @@ export default function ContactForm () {
               )} />
                 <FormField control={form.control} name="targetemployee" render={({ field }) => (
                 <FormItem className="md:col-span-3">
-                  <FormLabel>将来の農業経営の構想</FormLabel>
+                  <FormLabel>農業従事の態様等に関する目標</FormLabel>
                   <FormControl><Textarea rows={4} placeholder="例　月に○日程度を休日とする" {...field} /></FormControl>
                   <FormMessage />
                 </FormItem>
