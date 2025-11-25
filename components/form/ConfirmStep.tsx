@@ -267,10 +267,30 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           ) : (
             <p className="text-gray-500">目標を達成するために必要な措置（事業）（の入力がありません。</p>
           )}
+          <p className="font-bold text-xl" >常時雇（年間） </p>
+          <ConfirmItem label="実人数(現状)" value={data.currentmember} />
+          <ConfirmItem label="実人数(見通し)" value={data.targetemployee} />
+          <p className="font-bold text-xl" >臨時雇（年間） </p>
+          <ConfirmItem label="実人数(現状)" value={data.emergencycurrentmember} />
+          <ConfirmItem label="実人数(見通し)" value={data.emergencytargetmember} />
+          <p className="font-bold text-xl" >延べ人数（合計） </p>
+          <ConfirmItem label="実人数(現状)" value={data.sumcurrentmember} />
+          <ConfirmItem label="実人数(見通し)" value={data.sumtargetmember} />
         </div>
 
-
-
+        <hr className="my-6 border-gray-300 dark:border-gray-700" />
+        
+        {/* 技術知識の習得状況 */}
+        <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+          <h2 className="text-xl font-bold">技術知識の習得状況</h2>
+          <ConfirmItem label="研修先等の名称" value={data.trainingname || "未入力"} />
+          <ConfirmItem label="所在地" value={data.trainingAdress || "未入力"} />
+          <ConfirmItem label="専攻・営農部門" value={data.trainingSection || "未入力"} />
+          <ConfirmItem label="研修等期間開始日" value={data.trainingStartDate || "未入力"} />
+          <ConfirmItem label="研修等期間終了日" value={data.trainingEndDate || "未入力"} />
+          <ConfirmItem label="研修内容等" value={data.trainingContent || "未入力"} />
+          <ConfirmItem label="活用した補助金等" value={data.trainingAssist || "未入力"} />
+        </div>
 
 
         {/* ボタンセクション */}

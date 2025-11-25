@@ -348,8 +348,36 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
                 </TableBody>
               </Table>
               <Button type="button" variant="secondary" onClick={() => members.append({ name: "", relationOrRole: "", age: "", currentTask: "", currentDays: "", futureTask: "", futureDays: "" })}>行を追加</Button>
+          
+          <div className="grid grid-cols-2 md:grid-cols-2">
+            <p className="font-bold text-xl md:col-span-2" >常時雇（年間） </p>
+            <ReusableFormField name="currentmember" label="実人数(現状)" type="number" control={form.control} />
+            <ReusableFormField name="targetmember" label="実人数(見通し)" type="number" control={form.control} />
+            <p className="font-bold text-xl md:col-span-2" >臨時雇（年間）</p>
+            <ReusableFormField name="emergencycurrentmember" label="実人数(現状)" type="number" control={form.control} />
+            <ReusableFormField name="emergencytargetmember" label="実人数(見通し)" type="number" control={form.control} />
+            <p className="font-bold text-xl md:col-span-2" >延べ人数（合計）</p>
+            <ReusableFormField name="sumcurrentmember" label="実人数(現状)" type="number" control={form.control} />
+            <ReusableFormField name="sumtargetmember" label="実人数(見通し)" type="number" control={form.control} />
+          </div>
+
             </CardContent>
           </Card>
+
+
+      <Card>
+        <CardHeader><CardTitle>技術知識の習得状況</CardTitle></CardHeader>
+        <CardContent className="grid gap-4 md:grid-cols-2">
+          <ReusableFormField name="trainingname" label="研修先等の名称" control={form.control} className="md:col-span-2" />
+          <ReusableFormField name="trainingAdress" label="所在地" placeholder="○○県○○市○丁目○-○" control={form.control} className="md:col-span-2" />
+          <ReusableFormField name="trainingSection" label="専攻・営農部門" control={form.control} className="md:col-span-2" />
+          <ReusableFormField name="trainingStartDate" label="研修等期間開始日" type="date" control={form.control}  />
+          <ReusableFormField name="trainingEndDate" label="研修等期間終了日" type="date" control={form.control}  />
+          <ReusableTextareaField name="trainingContent" label="研修内容等" rows={4} control={form.control} className="md:col-span-2"  />
+          <ReusableTextareaField name="trainingAssist" label=" 活用した補助金等" rows={4} control={form.control} className="md:col-span-2"  />
+        </CardContent>
+      </Card>
+
 
       
       <Button type="submit">確認画面へ進む</Button>

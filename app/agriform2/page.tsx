@@ -98,9 +98,24 @@ const formSchema = z.object({
   targetAgricultural: z.string().min(1, { message: "必須"}).max(255, { message: "255文字以内で記入してください"}),
   targetemployee: z.string().min(1, { message: "必須"}).max(255, { message: "255文字以内で記入してください"}),
 
-    //目的達成のための措置
+  //農業経営の構成
   measures: z.array(MeasureRowSchema).min(1, { message: "必須" }),
   members: z.array(MemberRowSchema).min(1, {message: "必須"}),
+  //雇用者の人数
+  currentmember: z.string().optional(),
+  targetmember: z.string().optional(),
+  emergencycurrentmember: z.string().optional(),
+  emergencytargetmember: z.string().optional(),
+  sumcurrentmember: z.string().optional(),
+  sumtargetmember: z.string().optional(),
+  //研修
+  trainingname: z.string().optional(),
+  trainingAdress: z.string().optional(),
+  trainingSection: z.string().optional(),
+  trainingStartDate: z.string().optional(),
+  trainingEndDate: z.string().optional(),
+  trainingContent: z.string().max(255, { message: "255文字以内で記入してください"}).optional(),
+  trainingAssist: z.string().max(255, { message: "255文字以内で記入してください"}).optional(),
 })
 
 export type FormValues = z.output<typeof formSchema>; 
@@ -184,7 +199,21 @@ export default function ProfileForm() {
         currentDays: "",
         futureTask:"",
         futureDays: "",
-      }]
+      }],
+      currentmember: "",
+      targetmember: "",
+      emergencycurrentmember: "",
+      emergencytargetmember: "",
+      sumcurrentmember: "",
+      sumtargetmember: "",
+
+      trainingname: "",
+      trainingAdress: "",
+      trainingSection: "",
+      trainingStartDate: "",
+      trainingEndDate: "",
+      trainingContent: "",
+      trainingAssist: "",
     }
   })
 
