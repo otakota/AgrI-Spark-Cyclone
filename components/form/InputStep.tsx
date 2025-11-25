@@ -24,7 +24,7 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
 
       <Card>
         <CardHeader><CardTitle>青年等就農計画認定申請書（基本情報）</CardTitle></CardHeader>
-        <CardContent className="grid gap-4 md:grid-cols-3">
+        <CardContent className="grid gap-4 md:grid-cols-3" >
           <ReusableFormField name="name"               label="名前"  placeholder="山田 太郎" control={form.control} className="md:col-span-3"/>
           <ReusableFormField name="birthDate"           label="生年月日"  type="date" control={form.control} />
           <ReusableFormField name="age"                 label="年齢" type="number" control={form.control} />
@@ -62,7 +62,7 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
                 <FormItem className="md:col-span-3">
                   <FormLabel>就農形態</FormLabel>
                   <FormControl>
-                    <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                    <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="grid gap-3 sm:grid-cols-3">
                       <div className="flex items-center gap-2"><RadioGroupItem value="新たに農業経営を開始" id="t1" /><label htmlFor="t1">新たに農業経営を開始</label></div>
                       <div className="flex items-center gap-2"><RadioGroupItem value="親の経営とは別に新部門" id="t2" /><label htmlFor="t2">親の経営とは別に新部門</label></div>
                       <div className="flex items-center gap-2"><RadioGroupItem value="親の農業経営を継承" id="t3" /><label htmlFor="t3">親の農業経営を継承</label></div>
@@ -93,7 +93,7 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
 
       <Card>
         <CardHeader><CardTitle>経営の構想（所得・労働時間）</CardTitle></CardHeader>
-        <CardContent className="grid gap-4 md:grid-cols-2">
+        <CardContent className="grid gap-4 grid-cols-1 md:grid-cols-2">
           <p className="font-bold md:col-span-2">現状</p>
           <ReusableFormField name="incomeCurrent" label="年間農業所得（現状/千円）" control={form.control}  />
           <ReusableFormField name="hoursCurrent"  label="年間労働時間（現状/時間）" control={form.control}  />
@@ -211,7 +211,7 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
                   ))}
                 </TableBody>
               </Table>
-              <Button type="button" variant="secondary" onClick={() => lands.append({ typeofCrops: "所有地", landType: "畑", location: "", currentArea: "", targetArea: "" })}>行を追加</Button>
+              <Button type="button" variant="secondary" onClick={() => lands.append({ typeofCrops: "", landType: "", location: "", currentArea: "", targetArea: "" })}>行を追加</Button>
             </CardContent>
           </Card>
 

@@ -165,7 +165,7 @@ export default function ProfileForm() {
   }
 
   return (
-    <div className='container mx-auto px-60 py-30'>
+    <div className='container mx-auto md:px-60 py-20'>
       <Form {...form}>
         {/* ステップに応じてコンポーネントを切り替える */}
         {step === 1 ? (

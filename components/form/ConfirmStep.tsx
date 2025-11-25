@@ -61,6 +61,8 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           <ConfirmItem label="将来の農業経営の構想" value={data.futurePlan} />
         </div>
 
+        <hr className="my-6 border-gray-300 dark:border-gray-700" />
+
         {/* 経営の構想セクション */}
         <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
           <h2 className="text-xl font-bold">経営の構想</h2>
@@ -69,6 +71,8 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           <ConfirmItem label="年間農業所得" value={data.incomeTarget} />
           <ConfirmItem label="年間労働時間" value={data.hoursTarget} />
         </div>
+
+        <hr className="my-6 border-gray-300 dark:border-gray-700" />
 
         {/* 農業経営の規模に関する目標セクション */}
         <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
@@ -103,6 +107,8 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           )}
         </div>
 
+        <hr className="my-6 border-gray-300 dark:border-gray-700" />
+
         {/* 農地面積 */}
         <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
           <h2 className="text-xl font-bold">農地の面積（所有地/借入地）</h2>
@@ -134,6 +140,8 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
             <p className="text-gray-500">農地の面積（の入力がありません。</p>
           )}
         </div>
+
+        <hr className="my-6 border-gray-300 dark:border-gray-700" />
 
         {/* 利用する機械 */}
         <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
@@ -173,6 +181,8 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
             <p className="text-gray-500">生産方式に関する目標（の入力がありません。</p>
           )}
         </div>
+
+        <hr className="my-6 border-gray-300 dark:border-gray-700" />
 
         {/* 経営に関する目標セクション */}
         <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
