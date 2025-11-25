@@ -91,6 +91,12 @@ const formSchema = z.object({
   hoursTarget: z.string().min(1, { message: "必須" }),
   //作物名、生産量など
   crops: z.array(CropRowSchema).min(1, { message: "必須" }),
+
+  sumAreaCurrent: z.string().optional(), 
+  sumProductionCurrent: z.string().optional(), 
+  sumAreaTarget: z.string().min(1, { message: "必須" }), 
+  sumProductionTarget: z.string().min(1, { message: "必須" }), 
+
   lands: z.array(LandRowSchema).min(1, { message: "必須" }),
   machines: z.array(MachineRowSchema).min(1, { message: "必須" }),
 
@@ -165,6 +171,12 @@ export default function ProfileForm() {
         areaTarget: "",
         productionTarget: "",
       }],
+
+      sumAreaCurrent: "", 
+      sumProductionCurrent: "", 
+      sumAreaTarget: "",
+      sumProductionTarget: "",
+
       lands: [{
         typeofCrops: "",
         landType: "",

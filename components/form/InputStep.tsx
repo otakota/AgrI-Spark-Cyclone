@@ -157,6 +157,15 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
                 </TableBody>
               </Table>
               <Button type="button" variant="secondary" onClick={() => crops.append({ name: "", areaCurrent: "", productionCurrent: "", areaTarget: "", productionTarget: "" })}>行を追加</Button>
+
+              <p className="font-bold">経営面積合計</p>
+                <ReusableFormField name="sumAreaCurrent" label="作付面積合計(現状)" type="number" control={form.control} className="md:col-span-1"  />
+                <ReusableFormField name="sumProductionCurrent" label="生産量合計(現状)" type="number" control={form.control} className="md:col-span-1"  />
+                <ReusableFormField name="sumAreaTarget" label="作付面積合計（目標）" type="number" control={form.control} className="md:col-span-1"  />
+                <ReusableFormField name="sumProductionTarget" label="生産量合計（目標）" type="number" control={form.control} className="md:col-span-1"  />
+
+
+
             </CardContent>
           </Card>
 
