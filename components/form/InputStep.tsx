@@ -1,5 +1,5 @@
 import { UseFormReturn, useFieldArray } from "react-hook-form";
-import { FormValues } from "@/app/agriform2/page";
+import { FormValues } from "@/components/schemas/contactFormSchema";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from "@/components/ui/button";
 import { ReusableFormField, ReusableTextareaField } from "@/components/form/ReusableFormField";
@@ -38,22 +38,6 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
           <ReusableFormField name="corpEstablishedDate" label="法人設立年月日（法人の場合のみ）" type="date" control={form.control}  />
         </CardContent>
       </Card>
-
-
-      <Card>
-        <CardHeader><CardTitle>経歴</CardTitle></CardHeader>
-        <CardContent className="grid gap-4 md:grid-cols-2">
-          <ReusableFormField name="jobdetails" label="職務内容" control={form.control} className="md:col-span-2" />
-          <ReusableFormField name="companyname" label="勤務機関名" placeholder="株式会社○○" control={form.control} className="md:col-span-2" />
-          <ReusableFormField name="companyAdress" label="勤務機関住所"  placeholder="○○県○○市○丁目○-○" control={form.control} className="md:col-span-2" />
-          <ReusableFormField name="companystartdate" label="勤務期間開始日" type="date" control={form.control}  />
-          <ReusableFormField name="companyenddate" label="勤務期間終了日" type="date" control={form.control}  />
-          <ReusableFormField name="retirementDate" label="退職年月日"  type="date" control={form.control}  />
-          <ReusableTextareaField name="qualification" label="資格" rows={4} className="md:col-span-2"  control={form.control} />
-          <ReusableTextareaField name="skillAgricultural" label="農業経営に活用できる知識および技能の内容" rows={4} className="md:col-span-2" control={form.control} />
-        </CardContent>
-      </Card>
-
 
       <Card>
         <CardHeader><CardTitle>就業計画</CardTitle></CardHeader>
@@ -373,6 +357,20 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
             </CardContent>
           </Card>
 
+
+      <Card>
+        <CardHeader><CardTitle>経歴</CardTitle></CardHeader>
+        <CardContent className="grid gap-4 md:grid-cols-2">
+          <ReusableFormField name="jobdetails" label="職務内容" control={form.control} className="md:col-span-2" />
+          <ReusableFormField name="companyname" label="勤務機関名" placeholder="株式会社○○" control={form.control} className="md:col-span-2" />
+          <ReusableFormField name="companyAdress" label="勤務機関住所"  placeholder="○○県○○市○丁目○-○" control={form.control} className="md:col-span-2" />
+          <ReusableFormField name="companystartdate" label="勤務期間開始日" type="date" control={form.control}  />
+          <ReusableFormField name="companyenddate" label="勤務期間終了日" type="date" control={form.control}  />
+          <ReusableFormField name="retirementDate" label="退職年月日"  type="date" control={form.control}  />
+          <ReusableTextareaField name="qualification" label="資格" rows={4} className="md:col-span-2"  control={form.control} />
+          <ReusableTextareaField name="skillAgricultural" label="農業経営に活用できる知識および技能の内容" rows={4} className="md:col-span-2" control={form.control} />
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader><CardTitle>技術知識の習得状況</CardTitle></CardHeader>

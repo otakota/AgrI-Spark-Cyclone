@@ -1,4 +1,4 @@
-import { FormValues } from "@/app/agriform2/page"; // page.tsxから型をインポート
+import { FormValues } from "@/components/schemas/contactFormSchema"; 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -33,22 +33,7 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           <ConfirmItem label="申請者住所" value={data.applicantAddress} />
           <ConfirmItem label="法人設立年月日（法人の場合のみ）" value={data.corpEstablishedDate || "未入力"} />
         </div>
-        
-        <hr className="my-6 border-gray-300 dark:border-gray-700" />
-        
-        {/* 経歴セクション */}
-        <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
-          <h2 className="text-xl font-bold">経歴</h2>
-          <ConfirmItem label="職務内容" value={data.jobdetails} />
-          <ConfirmItem label="勤務機関名" value={data.companyname} />
-          <ConfirmItem label="勤務機関住所" value={data.companyAdress} />
-          <ConfirmItem label="勤務期間開始日" value={data.companystartdate} />
-          <ConfirmItem label="勤務期間終了日" value={data.companyenddate} />
-          <ConfirmItem label="退職年月日" value={data.retirementDate} />
-          <ConfirmItem label="資格" value={data.qualification || "未入力"} />
-          <ConfirmItem label="農業経営に活用できる知識および技能の内容" value={data.skillAgricultural || "未入力"} />
-        </div>
-
+      
         <hr className="my-6 border-gray-300 dark:border-gray-700" />
 
         {/* 就業計画セクション */}
@@ -279,7 +264,22 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
         </div>
 
         <hr className="my-6 border-gray-300 dark:border-gray-700" />
+
+        {/* 経歴セクション */}
+        <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+          <h2 className="text-xl font-bold">経歴</h2>
+          <ConfirmItem label="職務内容" value={data.jobdetails} />
+          <ConfirmItem label="勤務機関名" value={data.companyname} />
+          <ConfirmItem label="勤務機関住所" value={data.companyAdress} />
+          <ConfirmItem label="勤務期間開始日" value={data.companystartdate} />
+          <ConfirmItem label="勤務期間終了日" value={data.companyenddate} />
+          <ConfirmItem label="退職年月日" value={data.retirementDate} />
+          <ConfirmItem label="資格" value={data.qualification || "未入力"} />
+          <ConfirmItem label="農業経営に活用できる知識および技能の内容" value={data.skillAgricultural || "未入力"} />
+        </div>
         
+        <hr className="my-6 border-gray-300 dark:border-gray-700" />
+
         {/* 技術知識の習得状況 */}
         <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
           <h2 className="text-xl font-bold">技術知識の習得状況</h2>
