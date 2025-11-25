@@ -14,6 +14,8 @@ interface InputStepProps {
 }
 
 export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
+  const { formState: { errors } } = form;
+
   const crops = useFieldArray({ control: form.control, name: "crops" });
   const lands = useFieldArray({ control: form.control, name: "lands" });
   const machines = useFieldArray({ control: form.control, name: "machines" });
@@ -122,18 +124,27 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
                     <TableRow key={row.id}>
                       <TableCell>
                         <Input {...form.register(`crops.${i}.name` as const)} placeholder="例：タマネギ" />
+                        {errors.crops?.[i]?.name && (
+                          <p className="text-red-500 text-xs">{errors.crops[i].name.message}</p>
+                        )}
                       </TableCell>
                       <TableCell>
-                        <Input type="number" min={0} {...form.register(`crops.${i}.areaCurrent` as const, { valueAsNumber: true })} />
+                        <Input type="number" min={0} {...form.register(`crops.${i}.areaCurrent` as const)} />
                       </TableCell>
                       <TableCell>
-                        <Input type="number" min={0} {...form.register(`crops.${i}.productionCurrent` as const, { valueAsNumber: true })} />
+                        <Input type="number" min={0} {...form.register(`crops.${i}.productionCurrent` as const)} />
                       </TableCell>
                       <TableCell>
-                        <Input type="number" min={0} {...form.register(`crops.${i}.areaTarget` as const, { valueAsNumber: true })} />
+                        <Input type="number" min={0} {...form.register(`crops.${i}.areaTarget` as const)} />
+                        {errors.crops?.[i]?.areaTarget && (
+                          <p className="text-red-500 text-xs">{errors.crops[i].areaTarget.message}</p>
+                        )}
                       </TableCell>
                       <TableCell>
-                        <Input type="number" min={0} {...form.register(`crops.${i}.productionTarget` as const, { valueAsNumber: true })} />
+                        <Input type="number" min={0} {...form.register(`crops.${i}.productionTarget` as const)} />
+                        {errors.crops?.[i]?.productionTarget && (
+                          <p className="text-red-500 text-xs">{errors.crops[i].productionTarget.message}</p>
+                        )}
                       </TableCell>
                       <TableCell>
                         <Button type="button" variant="ghost" onClick={() => crops.remove(i)}>削除</Button>
@@ -142,7 +153,7 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
                   ))}
                 </TableBody>
               </Table>
-              <Button type="button" variant="secondary" onClick={() => crops.append({ name: "", areaCurrent: undefined, productionCurrent: undefined, areaTarget: undefined, productionTarget: undefined })}>行を追加</Button>
+              <Button type="button" variant="secondary" onClick={() => crops.append({ name: "", areaCurrent: "", productionCurrent: "", areaTarget: "", productionTarget: "" })}>行を追加</Button>
             </CardContent>
           </Card>
 
@@ -168,18 +179,30 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
                     <TableRow key={row.id}>
                       <TableCell>
                         <Input {...form.register(`lands.${i}.typeofCrops` as const)} placeholder="所有地/借入地" />
+                        {errors.lands?.[i]?.typeofCrops && (
+                          <p className="text-red-500 text-xs">{errors.lands[i].typeofCrops.message}</p>
+                        )}
                       </TableCell>
                       <TableCell>
                         <Input {...form.register(`lands.${i}.landType` as const)} placeholder="畑・田など" />
+                        {errors.lands?.[i]?.landType && (
+                          <p className="text-red-500 text-xs">{errors.lands[i].landType.message}</p>
+                        )}
                       </TableCell>
                       <TableCell>
                         <Input {...form.register(`lands.${i}.location` as const)} placeholder="○○市△地区" />
+                        {errors.lands?.[i]?.location && (
+                          <p className="text-red-500 text-xs">{errors.lands[i].location.message}</p>
+                        )}
                       </TableCell>
                       <TableCell>
-                        <Input type="number" min={0} {...form.register(`lands.${i}.currentArea` as const, { valueAsNumber: true })} />
+                        <Input type="number" min={0} {...form.register(`lands.${i}.currentArea` as const)} />
                       </TableCell>
                       <TableCell>
-                        <Input type="number" min={0} {...form.register(`lands.${i}.targetArea` as const, { valueAsNumber: true })} />
+                        <Input type="number" min={0} {...form.register(`lands.${i}.targetArea` as const)} />
+                        {errors.lands?.[i]?.targetArea && (
+                          <p className="text-red-500 text-xs">{errors.lands[i].targetArea.message}</p>
+                        )}
                       </TableCell>
                       <TableCell>
                         <Button type="button" variant="ghost" onClick={() => lands.remove(i)}>削除</Button>
@@ -188,7 +211,7 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
                   ))}
                 </TableBody>
               </Table>
-              <Button type="button" variant="secondary" onClick={() => lands.append({ typeofCrops: "所有地", landType: "畑", location: "", currentArea: undefined, targetArea: undefined })}>行を追加</Button>
+              <Button type="button" variant="secondary" onClick={() => lands.append({ typeofCrops: "所有地", landType: "畑", location: "", currentArea: "", targetArea: "" })}>行を追加</Button>
             </CardContent>
           </Card>
 
@@ -216,13 +239,13 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
                       <TableCell>
                         <div className="grid grid-cols-3 gap-2">
                           <Input className="col-span-2" placeholder="26馬力 等" {...form.register(`machines.${i}.currentSpec` as const)} />
-                          <Input type="number" min={0} placeholder="台" {...form.register(`machines.${i}.currentUnits` as const, { valueAsNumber: true })} />
+                          <Input type="number" min={0} placeholder="台" {...form.register(`machines.${i}.currentUnits` as const)} />
                         </div>
                       </TableCell>
                       <TableCell>
                         <div className="grid grid-cols-3 gap-2">
                           <Input className="col-span-2" placeholder="26馬力 等" {...form.register(`machines.${i}.targetSpec` as const)} />
-                          <Input type="number" min={0} placeholder="台" {...form.register(`machines.${i}.targetUnits` as const, { valueAsNumber: true })} />
+                          <Input type="number" min={0} placeholder="台" {...form.register(`machines.${i}.targetUnits` as const)} />
                         </div>
                       </TableCell>
                       <TableCell>
@@ -232,7 +255,7 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
                   ))}
                 </TableBody>
               </Table>
-              <Button type="button" variant="secondary" onClick={() => machines.append({ name: "", currentSpec: "", currentUnits: undefined, targetSpec: "", targetUnits: undefined })}>行を追加</Button>
+              <Button type="button" variant="secondary" onClick={() => machines.append({ name: "", currentSpec: "", currentUnits: "", targetSpec: "", targetUnits: "" })}>行を追加</Button>
             </CardContent>
           </Card>
 

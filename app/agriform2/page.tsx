@@ -10,29 +10,29 @@ import { ConfirmStep } from "@/components/form/ConfirmStep";
 
 //作物名、生産量など
 const CropRowSchema = z.object({
-  name: z.string().optional(), 
-  areaCurrent: z.number().nullable().optional(), 
-  productionCurrent: z.number().nullable().optional(), 
-  areaTarget: z.number().nullable().optional(), 
-  productionTarget: z.number().nullable().optional(), 
+  name: z.string().min(1, { message: "必須" }),
+  areaCurrent: z.string().optional(), 
+  productionCurrent: z.string().optional(), 
+  areaTarget: z.string().min(1, { message: "必須" }), 
+  productionTarget: z.string().min(1, { message: "必須" }), 
 });
 
 //農地面積
 const LandRowSchema = z.object({
-  typeofCrops: z.string().optional(),
-  landType: z.string().optional(),
-  location: z.string().optional(),
-  currentArea: z.number().optional(),
-  targetArea: z.number().optional(),
+  typeofCrops: z.string().min(1, { message: "必須" }),
+  landType: z.string().min(1, { message: "必須" }),
+  location: z.string().min(1, { message: "必須" }),
+  currentArea: z.string().optional(),
+  targetArea: z.string().min(1, { message: "必須" }),
 });
 
 //利用する機械
 const MachineRowSchema = z.object({
-  name: z.string().optional(),
+  name: z.string().optional(), 
   currentSpec: z.string().optional(), 
-  currentUnits: z.number().optional(), 
+  currentUnits: z.string().optional(), 
   targetSpec: z.string().optional(), 
-  targetUnits: z.number().optional(), 
+  targetUnits: z.string().optional(), 
 });
 
 const formSchema = z.object({
@@ -69,9 +69,9 @@ const formSchema = z.object({
   incomeTarget: z.string().min(1, { message: "必須" }),  
   hoursTarget: z.string().min(1, { message: "必須" }),
   //作物名、生産量など
-  crops: z.array(CropRowSchema).optional(),
-  lands: z.array(LandRowSchema).optional(),
-  machines: z.array(MachineRowSchema).optional(), 
+  crops: z.array(CropRowSchema).min(1, { message: "必須" }),
+  lands: z.array(LandRowSchema).min(1, { message: "必須" }),
+  machines: z.array(MachineRowSchema).min(1, { message: "必須" }),
 
   //経営の構想
   targetAgricultural: z.string().min(1, { message: "必須"}).max(255, { message: "255文字以内で記入してください"}),
@@ -122,25 +122,25 @@ export default function ProfileForm() {
       //作物
       crops: [{
         name: "",
-        areaCurrent: undefined,
-        productionCurrent: undefined,
-        areaTarget: undefined,
-        productionTarget: undefined,
+        areaCurrent: "",
+        productionCurrent: "",
+        areaTarget: "",
+        productionTarget: "",
       }],
       //農地面積
       lands: [{
         typeofCrops: "",
         landType: "",
         location: "",
-        currentArea: undefined,
-        targetArea: undefined,
+        currentArea: "",
+        targetArea: "",
       }],
       machines: [{
         name: "",
         currentSpec: "",
-        currentUnits: undefined,
+        currentUnits: "",
         targetSpec: "",
-        targetUnits: undefined,
+        targetUnits: "",
       }],
       //経営の構想
       targetAgricultural: "",
@@ -181,3 +181,4 @@ export default function ProfileForm() {
     </div>
   )
 }
+
