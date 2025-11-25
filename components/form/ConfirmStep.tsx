@@ -12,6 +12,9 @@ interface ConfirmStepProps {
 export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalSubmit }) => {
   const hasCropsData = data.crops && data.crops.length > 0;
   const haslandData = data.lands && data.lands.length > 0;
+  const hasrentalData = data.rentallands && data.rentallands.length > 0;
+  const hasSpecialData = data.specialwork && data.specialwork.length > 0;
+  const hasoutsourcingData = data.outsourcing && data.outsourcing.length > 0;
   const hasmachinesData = data.machines && data.machines.length > 0;
   const hasmeasuresData = data.measures && data.measures.length > 0;
   const hasmembersData = data.members && data.members.length > 0;
@@ -100,12 +103,14 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
         {/* 農地面積 */}
         <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
           <h2 className="text-xl font-bold">農地の面積（所有地/借入地）</h2>
+          {/* 所有地 */}
           
+          <p>所有地</p>
+
           {haslandData ? (
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>作目・部門名</TableHead>
                   <TableHead>作付面積（現状/a）</TableHead>
                   <TableHead>生産量（現状/kg）</TableHead>
                   <TableHead>作付面積（目標/a）</TableHead>
@@ -115,8 +120,7 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
               <TableBody>
                 {data.lands!.map((row, i) => (
                   <TableRow key={i}>
-                    <TableCell className="font-medium">{row.typeofCrops || "（未入力）"}</TableCell>
-                    <TableCell>{row.landType != null ? row.landType.toString() : "-"}</TableCell>
+                    <TableCell>{row.landType != null ? row.landType.toString() : "（未入力）"}</TableCell>
                     <TableCell>{row.location != null ? row.location.toString() : "-"}</TableCell>
                     <TableCell>{row.currentArea != null ? row.currentArea.toString() : "-"}</TableCell>
                     <TableCell>{row.targetArea != null ? row.targetArea.toString() : "-"}</TableCell>
@@ -127,6 +131,101 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           ) : (
             <p className="text-gray-500">農地の面積（の入力がありません。</p>
           )}
+
+          {/* 借入地 */}
+
+          <p>借入地</p>
+
+          {hasrentalData ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>地目</TableHead>
+                  <TableHead>所有地</TableHead>
+                  <TableHead>現状（a）</TableHead>
+                  <TableHead>目標（a）</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.rentallands!.map((row, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{row.landType != null ? row.landType.toString() : "（未入力）"}</TableCell>
+                    <TableCell>{row.location != null ? row.location.toString() : "-"}</TableCell>
+                    <TableCell>{row.currentArea != null ? row.currentArea.toString() : "-"}</TableCell>
+                    <TableCell>{row.targetArea != null ? row.targetArea.toString() : "-"}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p className="text-gray-500">農地の面積（の入力がありません。</p>
+          )}
+
+          {/* 特定作業委託 */}
+
+          <p>特定作業委託</p>
+
+          {hasSpecialData ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>作物</TableHead>
+                  <TableHead>作業</TableHead>
+                  <TableHead>作業委託面積（現状）</TableHead>
+                  <TableHead>生産量（現状）</TableHead>
+                  <TableHead>作業委託面積（目標）</TableHead>
+                  <TableHead>生産量（目標）</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.specialwork!.map((row, i) => (
+                  <TableRow key={i}>
+                    <TableCell className="font-medium">{row.crop || "（未入力）"}</TableCell>
+                    <TableCell>{row.work != null ? row.work.toString() : "-"}</TableCell>
+                    <TableCell>{row.currentland != null ? row.currentland.toString() : "-"}</TableCell>
+                    <TableCell>{row.currentproduction != null ? row.currentproduction.toString() : "-"}</TableCell>
+                    <TableCell>{row.targetland != null ? row.targetland.toString() : "-"}</TableCell>
+                    <TableCell>{row.targetproduction != null ? row.targetproduction.toString() : "-"}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p className="text-gray-500">農地の面積（の入力がありません。</p>
+          )}
+
+          <h2 className="text-xl font-bold">作業委託</h2>
+
+          
+          {hasoutsourcingData ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>作目</TableHead>
+                  <TableHead>作業</TableHead>
+                  <TableHead>現状（a）</TableHead>
+                  <TableHead>目標（a）</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.outsourcing!.map((row, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{row.crop != null ? row.crop.toString() : "（未入力）"}</TableCell>
+                    <TableCell>{row.work != null ? row.work.toString() : "-"}</TableCell>
+                    <TableCell>{row.currentArea != null ? row.currentArea.toString() : "-"}</TableCell>
+                    <TableCell>{row.targetArea != null ? row.targetArea.toString() : "-"}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p className="text-gray-500">農地の面積（の入力がありません。</p>
+          )}
+
+          <ConfirmItem label="単純計（現在）" value={data.sumAreacurrent} />
+          <ConfirmItem label="単純計（目標）" value={data.sumAreatarget} />
+          <ConfirmItem label="換算後（現在）" value={data.kanzancurrent} />
+          <ConfirmItem label="換算後（目標）" value={data.kanzantarget} />
         </div>
 
         <hr className="my-6 border-gray-300 dark:border-gray-700" />

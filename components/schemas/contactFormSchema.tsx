@@ -9,14 +9,39 @@ const CropRowSchema = z.object({
   productionTarget: z.string().min(1, { message: "必須" }), 
 });
 
-//農地面積
+//所有地
 const LandRowSchema = z.object({
-  typeofCrops: z.string().min(1, { message: "必須" }),
+  landType: z.string().optional(),
+  location: z.string().optional(),
+  currentArea: z.string().optional(),
+  targetArea: z.string().optional(),
+});
+
+//借入地
+const rentalSchema = z.object({
   landType: z.string().min(1, { message: "必須" }),
   location: z.string().min(1, { message: "必須" }),
   currentArea: z.string().optional(),
   targetArea: z.string().min(1, { message: "必須" }),
 });
+
+//特定作業委託
+const SpecialWorkSchema = z.object({
+  crop: z.string().optional(),
+  work: z.string().optional(),
+  currentland: z.string().optional(),
+  currentproduction: z.string().optional(),
+  targetland: z.string().optional(),
+  targetproduction: z.string().optional(),
+})
+
+//作業委託
+const OutsourcingSchema = z.object({
+  crop: z.string().optional(),
+  work: z.string().optional(),
+  currentArea: z.string().optional(),
+  targetArea: z.string().optional(),
+})
 
 //利用する機械
 const MachineRowSchema = z.object({
@@ -81,6 +106,16 @@ export const formSchema = z.object({
   sumProductionTarget: z.string().min(1, { message: "必須" }), 
 
   lands: z.array(LandRowSchema).min(1, { message: "必須" }),
+  rentallands: z.array(rentalSchema).min(1, { message: "必須" }),
+  specialwork: z.array(SpecialWorkSchema).min(1, {message: "必須"}),
+  outsourcing: z.array(OutsourcingSchema).min(1, {message: "必須"}),
+
+  sumAreacurrent: z.string().optional(),
+  sumAreatarget: z.string().optional(),
+  kanzancurrent: z.string().optional(),
+  kanzantarget: z.string().optional(),
+
+
   machines: z.array(MachineRowSchema).min(1, { message: "必須" }),
 
   //経営に関する目標

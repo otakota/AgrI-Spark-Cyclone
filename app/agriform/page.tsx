@@ -54,12 +54,40 @@ export default function ProfileForm() {
       sumProductionTarget: "",
 
       lands: [{
-        typeofCrops: "",
         landType: "",
         location: "",
         currentArea: "",
         targetArea: "",
       }],
+
+      rentallands: [{
+        landType: "",
+        location: "",
+        currentArea: "",
+        targetArea: "",
+      }],
+
+      specialwork: [{
+          crop: "",
+          work: "",
+          currentland: "",
+          currentproduction: "",
+          targetland: "",
+          targetproduction: "",
+      }],
+
+      outsourcing: [{
+        crop: "",
+        work: "",
+        currentArea: "",
+        targetArea: "",
+      }],
+
+      sumAreacurrent: "",
+      sumAreatarget: "",
+      kanzancurrent: "",
+      kanzantarget: "",
+
       machines: [{
         name: "",
         currentSpec: "",
@@ -88,6 +116,7 @@ export default function ProfileForm() {
         futureTask:"",
         futureDays: "",
       }],
+
       currentmember: "",
       targetmember: "",
       emergencycurrentmember: "",
