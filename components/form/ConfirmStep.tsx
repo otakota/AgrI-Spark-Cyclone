@@ -13,6 +13,9 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
   const hasCropsData = data.crops && data.crops.length > 0;
   const haslandData = data.lands && data.lands.length > 0;
   const hasmachinesData = data.machines && data.machines.length > 0;
+  const hasmeasuresData = data.measures && data.measures.length > 0;
+  const hasmembersData = data.members && data.members.length > 0;
+
   return (
     <Card>
       <CardHeader><CardTitle>入力内容の確認</CardTitle></CardHeader>
@@ -178,11 +181,13 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
               </TableBody>
             </Table>
           ) : (
-            <p className="text-gray-500">生産方式に関する目標（の入力がありません。</p>
+            <p className="text-gray-500">目標達成するために必要な措置（の入力がありません。</p>
           )}
         </div>
 
+
         <hr className="my-6 border-gray-300 dark:border-gray-700" />
+
 
         {/* 経営に関する目標セクション */}
         <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
@@ -190,6 +195,83 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           <ConfirmItem label="将来の農業経営の構想" value={data.targetAgricultural} />
           <ConfirmItem label="農業従事の態様等に関する目標" value={data.targetemployee} />
         </div>
+
+        <hr className="my-6 border-gray-300 dark:border-gray-700" />
+
+        {/* 目標達成のために必要な措置（事業） */}
+        <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+          <h2 className="text-xl font-bold">目標を達成するために必要な措置（事業）</h2>
+          
+          {hasmeasuresData ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>事業内容</TableHead>
+                  <TableHead>規模・構造等（仕様）</TableHead>
+                  <TableHead>実施時期</TableHead>
+                  <TableHead>事業費（千円）</TableHead>
+                  <TableHead>資金名等</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.measures!.map((row, i) => (
+                  <TableRow key={i}>
+                    <TableCell className="font-medium">{row.title || "（未入力）"}</TableCell>
+                    <TableCell>{row.spec != null ? row.spec.toString() : "-"}</TableCell>
+                    <TableCell>{row.when != null ? row.when.toString() : "-"}</TableCell>
+                    <TableCell>{row.cost != null ? row.cost.toString() : "-"}</TableCell>
+                    <TableCell>{row.fund != null ? row.fund.toString() : "-"}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p className="text-gray-500">目標を達成するために必要な措置（事業）（の入力がありません。</p>
+          )}
+        </div>
+
+        <hr className="my-6 border-gray-300 dark:border-gray-700" />
+
+        {/* 農業経営の構成（事業） */}
+        <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+          <h2 className="text-xl font-bold">農業経営の構成（家族・役員等）</h2>
+          
+          {hasmembersData ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>氏名</TableHead>
+                  <TableHead>続柄</TableHead>
+                  <TableHead>年齢</TableHead>
+                  <TableHead>担当業務（現状）</TableHead>
+                  <TableHead>従事日数（現状）</TableHead>
+                  <TableHead>担当業務（見通し）</TableHead>
+                  <TableHead>従事日数（見通し）</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.members!.map((row, i) => (
+                  <TableRow key={i}>
+                    <TableCell className="font-medium">{row.name || "（未入力）"}</TableCell>
+                    <TableCell>{row.relationOrRole != null ? row.relationOrRole.toString() : "-"}</TableCell>
+                    <TableCell>{row.age != null ? row.age.toString() : "-"}</TableCell>
+                    <TableCell>{row.currentTask != null ? row.currentTask.toString() : "-"}</TableCell>
+                    <TableCell>{row.currentDays != null ? row.currentDays.toString() : "-"}</TableCell>
+                    <TableCell>{row.futureTask != null ? row.futureTask.toString() : "-"}</TableCell>
+                    <TableCell>{row.futureTask != null ? row.futureTask.toString() : "-"}</TableCell>
+
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p className="text-gray-500">目標を達成するために必要な措置（事業）（の入力がありません。</p>
+          )}
+        </div>
+
+
+
+
 
         {/* ボタンセクション */}
         <div className="flex gap-4 pt-4">

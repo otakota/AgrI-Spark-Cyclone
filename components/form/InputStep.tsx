@@ -19,6 +19,9 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
   const crops = useFieldArray({ control: form.control, name: "crops" });
   const lands = useFieldArray({ control: form.control, name: "lands" });
   const machines = useFieldArray({ control: form.control, name: "machines" });
+  const measures = useFieldArray({ control: form.control, name: "measures" });
+  const members = useFieldArray({ control: form.control, name: "members" });
+
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 
@@ -259,13 +262,95 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
             </CardContent>
           </Card>
 
-      <Card>
-        <CardHeader><CardTitle>経営に関する目標</CardTitle></CardHeader>
-        <CardContent className="grid gap-4">
-          <ReusableTextareaField name="targetAgricultural" label="将来の農業経営の構想" rows={4} placeholder="例　青色申告の実施、PC活用による経理"  control={form.control} />
-          <ReusableTextareaField name="targetemployee" label="農業従事の態様等に関する目標" rows={4} placeholder="例　月に○日程度を休日とする" control={form.control} />
-        </CardContent>
-      </Card>
+            <Card>
+              <CardHeader><CardTitle>経営に関する目標</CardTitle></CardHeader>
+              <CardContent className="grid gap-4">
+                <ReusableTextareaField name="targetAgricultural" label="将来の農業経営の構想" rows={4} placeholder="例　青色申告の実施、PC活用による経理"  control={form.control} />
+                <ReusableTextareaField name="targetemployee" label="農業従事の態様等に関する目標" rows={4} placeholder="例　月に○日程度を休日とする" control={form.control} />
+              </CardContent>
+            </Card>
+
+            <Card>
+            <CardHeader><CardTitle>目標を達成するために必要な措置（事業）</CardTitle></CardHeader>
+            <CardContent className="space-y-3">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>事業内容</TableHead>
+                    <TableHead>規模・構造等（仕様）</TableHead>
+                    <TableHead>実施時期</TableHead>
+                    <TableHead>事業費（千円）</TableHead>
+                    <TableHead>資金名等</TableHead>
+                    <TableHead></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {measures.fields.map((row, i) => (
+                    <TableRow key={row.id}>
+                      <TableCell>
+                        <Input {...form.register(`measures.${i}.title` as const)} placeholder="トラクター導入 等" />
+                      </TableCell>
+                      <TableCell>
+                        <Input {...form.register(`measures.${i}.spec` as const)} placeholder="26馬力 等" />
+                      </TableCell>
+                      <TableCell>
+                        <Input {...form.register(`measures.${i}.when` as const)} placeholder="○年○月" />
+                      </TableCell>
+                      <TableCell>
+                        <Input type="number" min={0} {...form.register(`measures.${i}.cost` as const)} />
+                      </TableCell>
+                      <TableCell>
+                        <Input {...form.register(`measures.${i}.fund` as const)} placeholder="青年等就農資金 等" />
+                      </TableCell>
+                      <TableCell>
+                        <Button type="button" variant="ghost" onClick={() => measures.remove(i)}>削除</Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <Button type="button" variant="secondary" onClick={() => measures.append({ title: "", spec: "", when: "", cost: "", fund: "" })}>行を追加</Button>
+            </CardContent>
+          </Card>
+
+
+          <Card>
+            <CardHeader><CardTitle>農業経営の構成（家族・役員等）</CardTitle></CardHeader>
+            <CardContent className="space-y-3">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>氏名</TableHead>
+                    <TableHead>続柄/役職</TableHead>
+                    <TableHead>年齢</TableHead>
+                    <TableHead>担当業務（現状）</TableHead>
+                    <TableHead>従事日数（現状）</TableHead>
+                    <TableHead>担当業務（見通し）</TableHead>
+                    <TableHead>従事日数（見通し）</TableHead>
+                    <TableHead></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {members.fields.map((row, i) => (
+                    <TableRow key={row.id}>
+                      <TableCell><Input {...form.register(`members.${i}.name` as const)} /></TableCell>
+                      <TableCell><Input {...form.register(`members.${i}.relationOrRole` as const)} placeholder="代表者/妻 等" /></TableCell>
+                      <TableCell><Input type="number" min={0} {...form.register(`members.${i}.age` as const)} /></TableCell>
+                      <TableCell><Input {...form.register(`members.${i}.currentTask` as const)} /></TableCell>
+                      <TableCell><Input type="number" min={0} {...form.register(`members.${i}.currentDays` as const)} /></TableCell>
+                      <TableCell><Input {...form.register(`members.${i}.futureTask` as const)} /></TableCell>
+                      <TableCell><Input type="number" min={0} {...form.register(`members.${i}.futureDays` as const)} /></TableCell>
+                      <TableCell>
+                        <Button type="button" variant="ghost" onClick={() => members.remove(i)}>削除</Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <Button type="button" variant="secondary" onClick={() => members.append({ name: "", relationOrRole: "", age: "", currentTask: "", currentDays: "", futureTask: "", futureDays: "" })}>行を追加</Button>
+            </CardContent>
+          </Card>
+
       
       <Button type="submit">確認画面へ進む</Button>
     </form>

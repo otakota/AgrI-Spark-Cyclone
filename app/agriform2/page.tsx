@@ -35,6 +35,27 @@ const MachineRowSchema = z.object({
   targetUnits: z.string().optional(), 
 });
 
+//目的達成のための措置
+const MeasureRowSchema = z.object({
+  title: z.string().optional(),
+  spec: z.string().optional(),
+  when: z.string().optional(),
+  cost: z.string().optional(), //z.string().optional().default(""),
+  fund: z.string().optional(),
+});
+
+//構成
+const MemberRowSchema = z.object({
+  name: z.string().optional(),
+  relationOrRole: z.string().optional(),
+  age: z.string().optional(), 
+  currentTask: z.string().optional(),
+  currentDays: z.string().optional(), 
+  futureTask: z.string().optional(),
+  futureDays: z.string().optional(), 
+});
+
+
 const formSchema = z.object({
   //基本情報
   name: z.string().min(1, { message: "必須" }),
@@ -73,9 +94,13 @@ const formSchema = z.object({
   lands: z.array(LandRowSchema).min(1, { message: "必須" }),
   machines: z.array(MachineRowSchema).min(1, { message: "必須" }),
 
-  //経営の構想
+  //経営に関する目標
   targetAgricultural: z.string().min(1, { message: "必須"}).max(255, { message: "255文字以内で記入してください"}),
   targetemployee: z.string().min(1, { message: "必須"}).max(255, { message: "255文字以内で記入してください"}),
+
+    //目的達成のための措置
+  measures: z.array(MeasureRowSchema).min(1, { message: "必須" }),
+  members: z.array(MemberRowSchema).min(1, {message: "必須"}),
 })
 
 export type FormValues = z.output<typeof formSchema>; 
@@ -87,7 +112,6 @@ export default function ProfileForm() {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      //基本情報
       name: "",
       birthDate: "",
       applicationDate: "",
@@ -96,7 +120,7 @@ export default function ProfileForm() {
       applicantName: "",
       age: "",
       corpEstablishedDate: "",
-      //経歴
+      
       jobdetails: "",
       companyname: "",
       companystartdate: "",
@@ -105,7 +129,7 @@ export default function ProfileForm() {
       retirementDate: "",
       qualification: "",
       skillAgricultural: "",
-      //就業計画
+
       farmCity: "",
       businessStartDate: "",
       farmingType: "",
@@ -114,12 +138,11 @@ export default function ProfileForm() {
       inheritPeriodMonths: "",
       targetFarmingType: "",
       futurePlan: "",
-      //経営の構想
+
       incomeCurrent: "",
       incomeTarget: "", 
       hoursCurrent: "", 
       hoursTarget: "", 
-      //作物
       crops: [{
         name: "",
         areaCurrent: "",
@@ -127,7 +150,6 @@ export default function ProfileForm() {
         areaTarget: "",
         productionTarget: "",
       }],
-      //農地面積
       lands: [{
         typeofCrops: "",
         landType: "",
@@ -142,9 +164,27 @@ export default function ProfileForm() {
         targetSpec: "",
         targetUnits: "",
       }],
-      //経営の構想
+
       targetAgricultural: "",
       targetemployee: "",
+
+      measures:[{
+        title: "",
+        spec: "",
+        when: "",
+        cost: "",
+        fund: "",
+      }],
+
+      members:[{
+        name: "",
+        relationOrRole: "",
+        age: "",
+        currentTask: "",
+        currentDays: "",
+        futureTask:"",
+        futureDays: "",
+      }]
     }
   })
 
