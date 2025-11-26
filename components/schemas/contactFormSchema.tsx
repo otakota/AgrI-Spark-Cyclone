@@ -43,6 +43,13 @@ const OutsourcingSchema = z.object({
   targetArea: z.string().optional(),
 })
 
+const BusinessSchema = z.object({
+  name: z.string().optional(),
+  content: z.string().optional(),
+  currentbusiness: z.string().optional(),
+  targetbusiness: z.string().optional(),
+})
+
 //利用する機械
 const MachineRowSchema = z.object({
   name: z.string().optional(), 
@@ -71,6 +78,12 @@ const MemberRowSchema = z.object({
   futureTask: z.string().optional(),
   futureDays: z.string().optional(), 
 });
+
+const CertificationSchema = z.object({
+  Certificationname: z.string().optional(),
+  CertificationDate: z.string().optional(),
+  biko: z.string().optional(),
+})
 
 
 export const formSchema = z.object({
@@ -109,6 +122,8 @@ export const formSchema = z.object({
   rentallands: z.array(rentalSchema).min(1, { message: "必須" }),
   specialwork: z.array(SpecialWorkSchema).min(1, {message: "必須"}),
   outsourcing: z.array(OutsourcingSchema).min(1, {message: "必須"}),
+
+  business: z.array(BusinessSchema).min(1, { message: "必須" }),
 
   sumAreacurrent: z.string().optional(),
   sumAreatarget: z.string().optional(),
@@ -149,6 +164,8 @@ export const formSchema = z.object({
   trainingEndDate: z.string().optional(),
   trainingContent: z.string().max(255, { message: "255文字以内で記入してください"}).optional(),
   trainingAssist: z.string().max(255, { message: "255文字以内で記入してください"}).optional(),
+
+  certification: z.array(CertificationSchema).min(1, { message: "必須" }),
 })
 
 

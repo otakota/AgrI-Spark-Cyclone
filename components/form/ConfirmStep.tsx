@@ -15,9 +15,11 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
   const hasrentalData = data.rentallands && data.rentallands.length > 0;
   const hasSpecialData = data.specialwork && data.specialwork.length > 0;
   const hasoutsourcingData = data.outsourcing && data.outsourcing.length > 0;
+  const hasbusiness = data.business && data.business.length > 0;
   const hasmachinesData = data.machines && data.machines.length > 0;
   const hasmeasuresData = data.measures && data.measures.length > 0;
   const hasmembersData = data.members && data.members.length > 0;
+  const hascertification = data.certification && data.certification.length > 0;
 
   return (
     <Card>
@@ -230,6 +232,38 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
 
         <hr className="my-6 border-gray-300 dark:border-gray-700" />
 
+        {/* 農畜産物の加工・販売その他の関連・附帯事業 */}
+        <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+          <h2 className="text-xl font-bold">農畜産物の加工・販売その他の関連・附帯事業</h2>
+
+          {hasbusiness ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>事業名</TableHead>
+                  <TableHead>内容</TableHead>
+                  <TableHead>現状</TableHead>
+                  <TableHead>目標</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.business!.map((row, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{row.name != null ? row.name.toString() : "（未入力）"}</TableCell>
+                    <TableCell>{row.content != null ? row.content.toString() : "-"}</TableCell>
+                    <TableCell>{row.currentbusiness != null ? row.currentbusiness.toString() : "-"}</TableCell>
+                    <TableCell>{row.targetbusiness != null ? row.targetbusiness.toString() : "-"}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p className="text-gray-500">農地の面積（の入力がありません。</p>
+          )}
+        </div>
+
+        <hr className="my-6 border-gray-300 dark:border-gray-700" />
+
         {/* 利用する機械 */}
         <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
           <h2 className="text-xl font-bold">生産方式に関する目標（機械・施設）</h2>
@@ -391,6 +425,35 @@ export const ConfirmStep: React.FC<ConfirmStepProps> = ({ data, onBack, onFinalS
           <ConfirmItem label="活用した補助金等" value={data.trainingAssist || "未入力"} />
         </div>
 
+        <hr className="my-6 border-gray-300 dark:border-gray-700" />
+
+        {/* （参考）他市町村の認定状況 */}
+        <div className="space-y-4 p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+          <h2 className="text-xl font-bold">（参考）他市町村の認定状況</h2>
+
+          {hascertification ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>認定市区町村</TableHead>
+                  <TableHead>認定年月日</TableHead>
+                  <TableHead>備考</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.certification!.map((row, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{row.Certificationname != null ? row.Certificationname.toString() : "（未入力）"}</TableCell>
+                    <TableCell>{row.CertificationDate != null ? row.CertificationDate.toString() : "-"}</TableCell>
+                    <TableCell>{row.biko != null ? row.biko.toString() : "-"}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p className="text-gray-500">農地の面積（の入力がありません。</p>
+          )}
+        </div>
 
         {/* ボタンセクション */}
         <div className="flex gap-4 pt-4">

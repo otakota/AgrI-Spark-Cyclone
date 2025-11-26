@@ -21,9 +21,12 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
   const rentallands = useFieldArray({ control: form.control, name: "rentallands" });
   const specialwork = useFieldArray({ control: form.control, name: "specialwork" });
   const outsourcing = useFieldArray({ control: form.control, name: "outsourcing" });
+  const business = useFieldArray({ control: form.control, name: "business" });
   const machines = useFieldArray({ control: form.control, name: "machines" });
   const measures = useFieldArray({ control: form.control, name: "measures" });
   const members = useFieldArray({ control: form.control, name: "members" });
+  const certification = useFieldArray({ control: form.control, name: "certification" });
+
 
 
   return (
@@ -324,6 +327,46 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
             </CardContent>
           </Card>
 
+          {/* 農畜産物の加工・販売その他の関連・附帯事業 */}
+          <Card>
+            <CardHeader><CardTitle>農畜産物の加工・販売その他の関連・附帯事業</CardTitle></CardHeader>
+            <CardContent className="space-y-3">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>事業名</TableHead>
+                    <TableHead>内容</TableHead>
+                    <TableHead>現状</TableHead>
+                    <TableHead>目標</TableHead>
+                    <TableHead></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {business.fields.map((row, i) => (
+                    <TableRow key={row.id}>
+                      <TableCell>
+                        <Input {...form.register(`business.${i}.name` as const)} placeholder="" />
+                      </TableCell>
+                      <TableCell>
+                        <Input {...form.register(`business.${i}.content` as const)} placeholder="" />
+                      </TableCell>
+                      <TableCell>
+                        <Input type="number" min={0} {...form.register(`business.${i}.currentbusiness` as const)} placeholder="" />
+                      </TableCell>
+                      <TableCell>
+                        <Input type="number" min={0} {...form.register(`business.${i}.targetbusiness` as const)} />
+                      </TableCell>
+                      <TableCell>
+                        <Button type="button" variant="ghost" onClick={() => business.remove(i)}>削除</Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <Button type="button" variant="secondary" onClick={() => business.append({ name: "", content: "", currentbusiness: "", targetbusiness: "" })}>行を追加</Button>
+            </CardContent>
+          </Card>
+
           {/* 利用する機械 */}
 
           <Card>
@@ -497,6 +540,37 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
         </CardContent>
       </Card>
 
+          {/* （参考）他市町村の認定状況 */}
+          <Card>
+            <CardHeader><CardTitle>（参考）他市町村の認定状況</CardTitle></CardHeader>
+            <CardContent className="space-y-3">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>認定市区町村</TableHead>
+                    <TableHead>認定年月日</TableHead>
+                    <TableHead>備考</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {certification.fields.map((row, i) => (
+                    <TableRow key={row.id}>
+                      <TableCell>
+                        <Input {...form.register(`certification.${i}.Certificationname` as const)} placeholder="" />
+                      </TableCell>
+                      <TableCell>
+                        <Input {...form.register(`certification.${i}.CertificationDate` as const)} placeholder="" />
+                      </TableCell>
+                      <TableCell>
+                        <Input {...form.register(`certification.${i}.biko` as const)} placeholder="" />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <Button type="button" variant="secondary" onClick={() => certification.append({ Certificationname: "", CertificationDate: "",})}>行を追加</Button>
+            </CardContent>
+          </Card>
 
       
       <Button type="submit">確認画面へ進む</Button>

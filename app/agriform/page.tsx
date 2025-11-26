@@ -83,6 +83,13 @@ export default function ProfileForm() {
         targetArea: "",
       }],
 
+      business: [{
+        name: "",
+        content: "",
+        currentbusiness: "",
+        targetbusiness: "",
+      }],
+
       sumAreacurrent: "",
       sumAreatarget: "",
       kanzancurrent: "",
@@ -140,6 +147,12 @@ export default function ProfileForm() {
       trainingEndDate: "",
       trainingContent: "",
       trainingAssist: "",
+
+      certification:[{
+        Certificationname: "",
+        CertificationDate: "",
+        biko: "",
+      }],
     }
   })
 
