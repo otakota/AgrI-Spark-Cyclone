@@ -4,10 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { type Session } from "next-auth";
 import { signOut } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 
 const Header = ({ session }: { session: Session | null }) => {
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-gray-900/80 dark:supports-[backdrop-filter]:bg-gray-900/60">
+    <header className="sticky top-0 z-40 w-full md: px-15 border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-gray-900/80 dark:supports-[backdrop-filter]:bg-gray-900/60">
       <div className="container mx-auto flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-gradient-to-br from-green-500 to-emerald-600 text-white font-bold">A</span>
@@ -27,20 +28,20 @@ const Header = ({ session }: { session: Session | null }) => {
                 />
               </div>
               <div>
-                <button
+                <Button
                   onClick={() => signOut()}
-                  className="rounded-lg bg-blue-500 px-4 py-[7px] text-white hover:bg-gray-600"
+                  className="rounded-lg bg-green-600 px-4 py-[7px] text-white hover:bg-green-400"
                 >
                   ログアウト
-                </button>
+                </Button>
               </div>
             </>
           ) : (
             <div>
               <Link href="/login">
-                <button className="rounded-lg bg-blue-500 px-4 py-[7px] text-white hover:bg-gray-600">
+                <Button className="rounded-lg bg-green-600 px-4 py-[7px] text-white hover:bg-green-400">
                   ログイン
-                </button>
+                </Button>
               </Link>
             </div>
           )}

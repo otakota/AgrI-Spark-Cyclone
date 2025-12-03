@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth/next";
 import NextAuthProvider from "@/app/providers";
 import Header from "@/app/_components/header";
 import { nextAuthOptions } from "@/app/_utils/next-auth-options";
-import Footer from "@/components/Footer";
+import Footer from "@/app/_components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
