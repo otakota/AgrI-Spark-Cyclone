@@ -27,13 +27,13 @@ export default function Index() {
           <div className="max-w-xl">
             <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
               新規就農者のための
-              <span className="block bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text text-transparent">AgriSparkCyclone</span>
+              <span className="bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text text-transparent">AgriSparkCyclone</span>
             </h1>
             <p className="mt-5 text-lg text-muted-foreground">
               「全国共通の申請書」を自動入力。さらにAIが作物別に耕地面積から収支予測を行い、就農計画を強力にサポートします。
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="/login" className="inline-flex items-center justify-center rounded-md bg-green-500 px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:bg-green-700">
+              <a href="/login" className="inline-flex items-center justify-center rounded-md bg-gradient-to-r  from-emerald-600 to-green-500 px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:to-green-700">
                 ログイン
               </a>
               <a href="/finance/predict" className="inline-flex items-center justify-center rounded-md border px-5 py-3 text-sm font-semibold hover:bg-accent">
@@ -59,7 +59,7 @@ export default function Index() {
       </section>
 
       <section className="border-t bg-muted/30">
-        <div className="container mx-auto grid gap-6 px-4 py-12 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="container mx-auto grid gap-6 px-15 py-12 sm:grid-cols-2 lg:grid-cols-3">
           <Feature title="申請書を自動入力" desc="全国共通フォーマットに対応。プロフィールから自動入力し、ミスを削減。" />
           <Feature title="AIで収支予測" desc="作物トップ10(仮)から選択し、耕地の大きさに基づいて収支を予測。" />
           <Feature title="安全なデータ管理" desc="データは暗号化して保護。将来的な連携もスムーズ。" />

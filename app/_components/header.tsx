@@ -30,7 +30,7 @@ const Header = ({ session }: { session: Session | null }) => {
               <div>
                 <Button
                   onClick={() => signOut()}
-                  className="rounded-lg bg-green-500 px-4 py-[7px] text-white hover:bg-green-700"
+                  className="rounded-lg bg-gray-200 px-4 py-[7px] text-black hover:bg-gray-300"
                 >
                   ログアウト
                 </Button>
