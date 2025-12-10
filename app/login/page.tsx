@@ -12,7 +12,7 @@ const LoginPage = () => {
   useEffect(() => {
     // ログイン済みの場合はTOPページにリダイレクト
     if (status === "authenticated") {
-      redirect("/");
+      redirect("/home");
     }
   }, [session, status]);
 
@@ -22,7 +22,7 @@ const LoginPage = () => {
 
     // ログインに成功したらTOPページにリダイレクト
     if (result) {
-      redirect("/");
+      redirect("/home");
     }
   };
 
