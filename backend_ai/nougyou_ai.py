@@ -68,6 +68,19 @@ class NougyouPredictor:
             'house_lilium':'リリウム(切花/施設)',
             'house_carnation':'カーネーション(切花/施設)',
             'cyclamen':'シクラメン(鉢物/施設)',
+            'naked_barley':'裸麦',
+            'sixrow_barley':'六条大麦',
+            'tworow_barley':'二条大麦',
+            'tatami':'イ草/畳表',
+            'paddy_buckwheat':'そば(水田作)',
+            'azuki':'小豆',
+            'greenbeans':'いんげん',
+            'konjac':'こんにゃく',
+            'peanut':'落花生',
+            'potato':'じゃがいも',
+            'sweetpotato':'さつまいも',
+            'tealeaf':'茶',
+            'dry_buckwheat':'そば(畑作)',
         }
         
         self.target_items = ['農業粗収益', '肥料', '薬剤', '光熱動力', '雇用労賃', '農業経営費']
