@@ -45,6 +45,23 @@ class NougyouPredictor:
             'strawberry_house':'苺(施設)',
             'melon_house':'メロン(施設)',
             'watermelon_house':'スイカ(施設)',
+            'mikan':'みかん(果樹作)',
+            'natsumikan':'夏みかん(果樹作)',
+            'hassaku':'はっさく(果樹作)',
+            'iyokan':'いよかん(果樹作)',
+            'navelorange':'ネーブルオレンジ(果樹作)',
+            'apple':'りんご(果樹作)',
+            'japanese_pear':'日本梨(果樹作)',
+            'persimmon':'柿(果樹作)',
+            'biwa':'びわ(果樹作)',
+            'peach':'もも(果樹作)',
+            'plum':'すもも(果樹作)',
+            'cherry':'さくらんぼ(果樹作)',
+            'japanese_apricot':'梅(果樹作)',
+            'grape':'ぶどう(果樹作)',
+            'chestnut':'栗(果樹作)',
+            'pineapple':'パインアップル(果樹作)',
+            'kiwi_fruit':'キウイフルーツ(果樹作)',
         }
         
         self.target_items = ['農業粗収益', '肥料', '薬剤', '光熱動力', '雇用労賃', '農業経営費']
