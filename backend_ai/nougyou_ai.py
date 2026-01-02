@@ -62,6 +62,12 @@ class NougyouPredictor:
             'chestnut':'栗(果樹作)',
             'pineapple':'パインアップル(果樹作)',
             'kiwi_fruit':'キウイフルーツ(果樹作)',
+            'chrysanthemum':'菊(切花)',
+            'house_chrysanthemum':'菊(切花/施設)',
+            'house_rose':'バラ(切花/施設)',
+            'house_lilium':'リリウム(切花/施設)',
+            'house_carnation':'カーネーション(切花/施設)',
+            'cyclamen':'シクラメン(鉢物/施設)',
         }
         
         self.target_items = ['農業粗収益', '肥料', '薬剤', '光熱動力', '雇用労賃', '農業経営費']
