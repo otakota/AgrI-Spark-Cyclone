@@ -16,12 +16,35 @@ class NougyouPredictor:
         
         # --- 作物名変換辞書 ---
         self.crop_display_names = {
-            'daikon':'大根', 'carrot':'人参', 'chinese_cabbage':'白菜',
-            'cabbage':'キャベツ', 'spinach':'ほうれん草', 'taro':'里芋',
-            'lettuce':'レタス', 'white_onion':'白ねぎ', 'green_onion':'青ねぎ',
-            'onion':'玉ねぎ', 'garlic':'にんにく', 'cucumber':'きゅうり',
-            'eggplant':'なす', 'large_tomato':'大玉トマト', 'small_tomato':'ミニトマト',
-            'green_pepper':'ピーマン', 'shishito':'ししとう', 'melon':'メロン', 'watermelon':'スイカ'
+            'daikon':'大根',
+            'carrot':'人参',
+            'chinese_cabbage':'白菜',
+            'cabbage':'キャベツ',
+            'spinach':'ほうれん草',
+            'taro':'里芋',
+            'lettuce':'レタス',
+            'white_onion':'白ねぎ',
+            'green_onion':'青ねぎ',
+            'onion':'玉ねぎ',
+            'garlic':'にんにく',
+            'cucumber':'きゅうり',
+            'eggplant':'なす',
+            'large_tomato':'大玉トマト',
+            'small_tomato':'ミニトマト',
+            'green_pepper':'ピーマン',
+            'shishito':'ししとう',
+            'melon':'メロン',
+            'watermelon':'スイカ',
+            'green_onion_house':'青ねぎ(施設)',
+            'cucumber_house':'きゅうり(施設)',
+            'eggplant_house':'なす(施設)',
+            'large_tomato_house':'大玉トマト(施設)',
+            'small_tomato_house':'ミニトマト(施設)',
+            'green_pepper_house':'ピーマン(施設)',
+            'shishito_house':'ししとう(施設)',
+            'strawberry_house':'苺(施設)',
+            'melon_house':'メロン(施設)',
+            'watermelon_house':'スイカ(施設)',
         }
         
         self.target_items = ['農業粗収益', '肥料', '薬剤', '光熱動力', '雇用労賃', '農業経営費']
@@ -40,34 +63,36 @@ class NougyouPredictor:
         return unicodedata.normalize('NFKC', str(text)).replace(' ', '').replace('　', '').strip()
 
     def _load_from_folders(self):
-        """
-        フォルダ構造を自動走査: dataset / 年度 / 経営形態 / 作物名 / *.xls
-        """
         all_records = []
         if not os.path.exists(self.dataset_dir): return pd.DataFrame()
 
-        # 1. 年度フォルダ (H17, H18, H19...)
-        for year_entry in [f for f in os.scandir(self.dataset_dir) if f.is_dir()]:
-            # 2. 経営形態フォルダ (露地野菜, 施設野菜...)
-            for type_entry in [f for f in os.scandir(year_entry.path) if f.is_dir()]:
-                # 3. 作物名フォルダ (daikon, carrot...)
-                for crop_entry in [f for f in os.scandir(type_entry.path) if f.is_dir()]:
+        year_folders = [f for f in os.scandir(self.dataset_dir) if f.is_dir()]
+
+        for y_folder in year_folders:
+            type_folders = [f for f in os.scandir(y_folder.path) if f.is_dir()]
+            
+            for t_folder in type_folders:
+                crop_folders = [f for f in os.scandir(t_folder.path) if f.is_dir()]
+                
+                for c_folder in crop_folders:
+                    # --- 修正ポイント：フォルダ名の空白を除去して辞書を引く ---
+                    raw_name = c_folder.name.strip() 
+                    crop_display = self.crop_display_names.get(raw_name, raw_name)
                     
-                    crop_display = self.crop_display_names.get(crop_entry.name, crop_entry.name)
-                    
-                    for file_path in glob.glob(os.path.join(crop_entry.path, "*.xls")):
+                    # デバッグ用：もし辞書にない英語名が出てきたら通知（必要に応じてコメントアウト）
+                    if crop_display == raw_name and re.search(r'[a-z]', raw_name):
+                        print(f"  [!] 辞書未登録または不一致: '{raw_name}'")
+
+                    files = glob.glob(os.path.join(c_folder.path, "*.xls"))
+                    for file_path in files:
                         try:
-                            # 判定用に少量読み込み
-                            df_check = pd.read_excel(file_path, header=None, nrows=40)
-                            check_area = df_check.astype(str).to_string()
+                            df = pd.read_excel(file_path, header=None)
+                            check_area = df.iloc[:30, :5].astype(str).to_string()
                             
-                            # H16のように収支と分析が混在していても、「収益/経営費」があれば読み込む
                             if "農業粗収益" in check_area or "農業経営費" in check_area:
-                                print(f"【解析中】: {year_entry.name}/{type_entry.name}/{crop_display} ({os.path.basename(file_path)})")
-                                
-                                # 解析には全データを読み込む
-                                df_full = pd.read_excel(file_path, header=None)
-                                records = self._parse_income_sheet(df_full, crop_display)
+                                # 表示を 年度/形態/表示名 に統一
+                                print(f"【解析中】: {y_folder.name}/{t_folder.name}/{crop_display} ({os.path.basename(file_path)})")
+                                records = self._parse_income_sheet(df, crop_display)
                                 if records:
                                     all_records.extend(records)
                         except Exception as e:
