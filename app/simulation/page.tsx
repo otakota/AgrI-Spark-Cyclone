@@ -9,7 +9,8 @@ import { Label } from "@/components/ui/label";
 // 型定義
 interface Options {
   crops: string[];
-  regions: string[];
+  // ★追加: 品目ごとの地域マップ
+  crop_to_regions: { [key: string]: string[] }; 
 }
 
 interface PredictionResult {
@@ -22,11 +23,13 @@ interface PredictionResult {
 }
 
 export default function SimulationPage() {
-  const [options, setOptions] = useState<Options>({ crops: [], regions: [] });
+  const [options, setOptions] = useState<Options>({ crops: [], crop_to_regions: {} });
+  // ★現在選択可能な地域のリスト
+  const [availableRegions, setAvailableRegions] = useState<string[]>([]);
+  
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<PredictionResult | null>(null);
 
-  // フォームの状態
   const [formData, setFormData] = useState({
     crop: "",
     region: "",
@@ -35,18 +38,46 @@ export default function SimulationPage() {
     inflation: 1.2,
   });
 
-  // 初回ロード時にPythonサーバーから選択肢を取得
+  // 初回ロード
   useEffect(() => {
     fetch("http://127.0.0.1:8000/options")
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: Options) => {
         setOptions(data);
+        
         // 初期値設定
-        if (data.crops.length > 0) setFormData(prev => ({ ...prev, crop: data.crops[0] }));
-        if (data.regions.length > 0) setFormData(prev => ({ ...prev, region: data.regions[0] }));
+        if (data.crops.length > 0) {
+          const firstCrop = data.crops[0];
+          // 最初の作物に対応する地域リストを取得
+          const regionsForFirstCrop = data.crop_to_regions[firstCrop] || [];
+          
+          setAvailableRegions(regionsForFirstCrop);
+          
+          setFormData(prev => ({ 
+            ...prev, 
+            crop: firstCrop,
+            region: regionsForFirstCrop.length > 0 ? regionsForFirstCrop[0] : ""
+          }));
+        }
       })
-      .catch((err) => console.error("AIサーバーが起動していません:", err));
+      .catch((err) => console.error("AIサーバーエラー:", err));
   }, []);
+
+  // ★品目が変更されたときの処理
+  const handleCropChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newCrop = e.target.value;
+    // その品目に対応する地域リストを取り出す
+    const newRegions = options.crop_to_regions[newCrop] || [];
+    
+    setAvailableRegions(newRegions);
+    
+    setFormData({ 
+      ...formData, 
+      crop: newCrop,
+      // 地域をリストの先頭にリセットする（前の地域がリストにない可能性があるため）
+      region: newRegions.length > 0 ? newRegions[0] : "" 
+    });
+  };
 
   const handlePredict = async () => {
     setLoading(true);
@@ -56,10 +87,11 @@ export default function SimulationPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+      if (!res.ok) throw new Error("API Error");
       const data = await res.json();
       setResult(data);
     } catch (error) {
-      alert("予測に失敗しました。Pythonサーバーを確認してください。");
+      alert("予測に失敗しました。条件を確認してください。");
     } finally {
       setLoading(false);
     }
@@ -70,7 +102,6 @@ export default function SimulationPage() {
       <h1 className="text-2xl font-bold mb-6">営農収支シミュレーション</h1>
       
       <div className="grid md:grid-cols-2 gap-6">
-        {/* 入力フォーム */}
         <Card>
           <CardHeader>
             <CardTitle>条件設定</CardTitle>
@@ -81,21 +112,25 @@ export default function SimulationPage() {
               <select 
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2"
                 value={formData.crop}
-                onChange={(e) => setFormData({...formData, crop: e.target.value})}
+                onChange={handleCropChange} // ★ここを変更
               >
                 {options.crops.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
             </div>
 
             <div>
-              <Label>地域</Label>
+              <Label>地域 (※選択した品目のデータがある地域のみ)</Label>
               <select 
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2"
                 value={formData.region}
                 onChange={(e) => setFormData({...formData, region: e.target.value})}
               >
-                {options.regions.map((r) => <option key={r} value={r}>{r}</option>)}
+                {/* ★動的に変わる地域リストを表示 */}
+                {availableRegions.map((r) => <option key={r} value={r}>{r}</option>)}
               </select>
+              {availableRegions.length === 0 && (
+                <p className="text-xs text-red-500 mt-1">この品目の地域データが見つかりません</p>
+              )}
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -124,7 +159,6 @@ export default function SimulationPage() {
           </CardContent>
         </Card>
 
-        {/* 結果表示 */}
         <Card>
           <CardHeader>
             <CardTitle>予測結果 (単位: 円)</CardTitle>
