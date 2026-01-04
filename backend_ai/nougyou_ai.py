@@ -197,33 +197,54 @@ class NougyouPredictor:
             self.crop_to_regions[c] = sorted(list(self.crop_to_regions[c]))
 
     def predict(self, crop, region, area_are, months=12, inflation_rev=1.40, inflation_exp=1.50):
-            if not self.models: return {"error": "学習データがありません"}
-            
-            input_data = pd.DataFrame([{'crop': crop, 'region': region}])
-            input_encoded = pd.get_dummies(input_data).reindex(columns=self.feature_columns, fill_value=0)
-            
-            results = {}
-            for item, model in self.models.items():
-                pred_10a = model.predict(input_encoded)[0]
-                
-                # --- ここを修正：引数で受け取った係数を使用する ---
-                # 売上高（粗収益）なら1.40倍、それ以外の経費項目なら1.50倍
-                inf_rate = inflation_rev if item == '農業粗収益' else inflation_exp
-                
-                # 10aあたりの予測金額(円) * (面積/10) * 物価補正
-                total_annual = pred_10a * (area_are / 10.0) * inf_rate
-                
-                # 期間で按分
-                amount = total_annual * (months / 12.0)
-                results[item] = int(max(0, amount))
-            
-            income = results.get('農業粗収益', 0) - results.get('農業経営費', 0)
-            return {
-                "status": "success",
-                "summary": {
-                    "売上高": results.get('農業粗収益', 0), 
-                    "経営費計": results.get('農業経営費', 0), 
-                    "農業所得": income
-                },
-                "details": {k: v for k, v in results.items() if k not in ['農業粗収益', '農業経営費']}
-            }
+        if not self.models: return {"error": "学習データがありません"}
+        
+        input_data = pd.DataFrame([{'crop': crop, 'region': region}])
+        input_encoded = pd.get_dummies(input_data).reindex(columns=self.feature_columns, fill_value=0)
+        
+        results = {}
+        for item, model in self.models.items():
+            pred_10a = model.predict(input_encoded)[0]
+            inf_rate = inflation_rev if item == '農業粗収益' else inflation_exp
+            total_annual = pred_10a * (area_are / 10.0) * inf_rate
+            amount = total_annual * (months / 12.0)
+            results[item] = int(max(0, amount))
+        
+        # --- ここが修正ポイント：経費の合計を正しく取得 ---
+        # 1. 直接「農業経営費」という項目があればそれを使う
+        total_expense = results.get('農業経営費', 0)
+        
+        # 2. もし「農業経営費」が0の場合、各経費（肥料、薬剤など）の合計を算出する（予備ロジック）
+        if total_expense == 0:
+            expense_keys = ['肥料', '薬剤', '光熱動力', '雇用労賃']
+            total_expense = sum(results.get(k, 0) for k in expense_keys)
+        
+        # 3. グラフ用の月次推移データを生成
+        trend = []
+        cumulative_income = 0
+        m_rev = results.get('農業粗収益', 0) / months
+        m_exp = total_expense / months  # 修正された合計経費を使用
+        
+        for m in range(1, months + 1):
+            monthly_income = m_rev - m_exp
+            cumulative_income += monthly_income
+            trend.append({
+                "name": f"{m}ヶ月",
+                "売上": int(m_rev),
+                "経費": int(m_exp),
+                "累積利益": int(cumulative_income)
+            })
+        
+        # 最終的な利益（所得）
+        income = results.get('農業粗収益', 0) - total_expense
+        
+        return {
+            "status": "success",
+            "summary": {
+                "売上高": results.get('農業粗収益', 0), 
+                "経営費計": total_expense, 
+                "農業所得": income
+            },
+            "details": {k: v for k, v in results.items() if k not in ['農業粗収益', '農業経営費']},
+            "trend": trend 
+        }
