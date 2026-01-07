@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
 import { getServerSession } from "next-auth/next";
 import NextAuthProvider from "@/app/providers";
-
 import Header from "@/app/_components/header";
 import { nextAuthOptions } from "@/app/_utils/next-auth-options";
+import Footer from "@/app/_components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +27,7 @@ export default async function RootLayout({
         <NextAuthProvider>
           <Header session={session} />
           {children}
+          <Footer />
         </NextAuthProvider>
       </body>
     </html>
