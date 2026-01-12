@@ -1,9 +1,8 @@
 import GoogleProvider from "next-auth/providers/google";
-
 import type { NextAuthOptions } from "next-auth";
 
 export const nextAuthOptions: NextAuthOptions = {
-  debug: true,
+  debug: false, // 本番は false 推奨（必要な時だけ true）
   session: { strategy: "jwt" },
   providers: [
     GoogleProvider({
@@ -12,32 +11,36 @@ export const nextAuthOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user, account, profile }) => {
-      // 注意: トークンをログ出力してはダメです。
-      console.log("in jwt", { user, token, account, profile });
+    async jwt({ token, user, account }) {
+      // ✅ ユーザー識別子を token に確実に保持
+      // user.id が無いケースがあるので token.sub を優先的に使う
+      const id = (user as any)?.id ?? token.sub;
+      if (id) token.id = id;
 
+      // role を使うなら残す（無いなら undefined）
       if (user) {
-        token.user = user;
         const u = user as any;
-        token.role = u.role;
+        if (u?.role) token.role = u.role;
       }
-      if (account) {
+
+      // Googleの access_token を使うなら保持（不要なら消してOK）
+      if (account?.access_token) {
         token.accessToken = account.access_token;
       }
+
       return token;
     },
-    session: ({ session, token }) => {
-      console.log("in session", { session, token });
-      token.accessToken;
+
+    async session({ session, token }) {
+      // ✅ session.user に id を載せる（これが無いと session.user.id が undefined）
       return {
         ...session,
         user: {
           ...session.user,
-          role: token.role,
+          id: (token.id ?? token.sub) as string, // ← ここが最重要
+          role: token.role as any,
         },
       };
     },
   },
 };
-
-

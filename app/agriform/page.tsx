@@ -13,6 +13,8 @@ import { formSchema, FormValues } from '@/components/schemas/contactFormSchema';
 export default function ProfileForm() {
   const [step, setStep] = useState(1); // 1:入力, 2:確認
   const [formData, setFormData] = useState<FormValues | null>(null);
+  const [generatedPath, setGeneratedPath] = useState<string | null>(null);
+
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -184,6 +186,7 @@ export default function ProfileForm() {
       }
 
       const result = await response.json();
+      setGeneratedPath(result.path); // 例: files/<userId>/keikaku_....xlsx
       console.log("送信成功:", result);
       alert("申請を送信しました！ Excel ファイルへの書き込みも完了しています。");
 
@@ -213,6 +216,30 @@ export default function ProfileForm() {
           />
         )}
       </Form>
+      {generatedPath && (
+  <div className="mt-6 p-4 border rounded bg-gray-50">
+    <div className="font-semibold text-sm">生成したファイル</div>
+    <div className="text-xs text-gray-600 break-all mt-1">{generatedPath}</div>
+
+    <div className="mt-3 flex gap-2">
+      <a
+        className="bg-blue-600 text-white px-4 py-2 rounded text-sm"
+        href={`/api/files/preview?path=${encodeURIComponent(generatedPath)}`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        開く（署名URL）
+      </a>
+      <button
+        className="px-4 py-2 rounded border text-sm"
+        onClick={() => setGeneratedPath(null)}
+      >
+        閉じる
+      </button>
+    </div>
+  </div>
+)}
+
     </div>
   )
 }
