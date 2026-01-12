@@ -6,3 +6,10 @@ openpyxl==3.1.5
 xlrd==2.0.2
 numpy
 scikit-learn
+
+# --- 安定動作のために追記すべきライブラリ---
+python-multipart # FastAPIでファイルのアップロードを扱う場合に必要
+pydantic-settings # FastAPIで環境変数を管理する場合に推奨
+httpx # FastAPIのテストや外部API呼び出しに便利
+scipy # scikit-learnやxgboostの内部計算で必要になることが多い
+joblib # モデルの保存・読み込み用

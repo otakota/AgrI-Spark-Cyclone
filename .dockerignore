@@ -1,3 +1,27 @@
+<<<<<<< HEAD
+node_modules
+pnpm-debug.log
+
+# ビルド成果物
+.next
+out
+build
+
+# 他のサービスのディレクトリ（フロントエンドのビルドに含めない）
+backend_ai
+dataset
+
+# Git・設定ファイル
+.git
+.gitignore
+README.md
+.DS_Store
+
+# 環境変数（セキュリティのため、ローカルの .env は含めないのが一般的）
+.env*.local
+
+.git
+=======
 # 依存関係（ローカルのものはコンテナ内では不要）
 node_modules
 pnpm-debug.log
@@ -19,3 +43,4 @@ README.md
 
 # 環境変数（セキュリティのため、ローカルの .env は含めないのが一般的）
 .env*.local
+>>>>>>> 03afe821ea8f143b7c0f4b88e02bb60dd329450e

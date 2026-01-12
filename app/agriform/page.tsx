@@ -165,12 +165,39 @@ export default function ProfileForm() {
   }
 
   // 2. 確認画面からの最終送信
-  const handleFinalSubmit = () => {
-    if (formData) {
-      console.log("最終送信データ:", formData);
-      alert("申請を送信しました！");
+  const handleFinalSubmit = async () => {
+  if (formData) {
+    try {
+      const response = await fetch('/agriform/api/updateExcel', { // route.js のパス
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("送信エラー:", errorData);
+        alert(`送信に失敗しました: ${errorData.error}`);
+        return;
+      }
+
+      const result = await response.json();
+      console.log("送信成功:", result);
+      alert("申請を送信しました！ Excel ファイルへの書き込みも完了しています。");
+
+      // 必要に応じてフォームリセットやステップを戻す
+      setStep(1);
+      form.reset();
+
+    } catch (err) {
+      console.error("通信エラー:", err);
+      alert("送信に失敗しました。ネットワークを確認してください。");
     }
   }
+}
+
 
   return (
     <div className='container mx-auto md:px-60 py-20'>
@@ -189,4 +216,3 @@ export default function ProfileForm() {
     </div>
   )
 }
-

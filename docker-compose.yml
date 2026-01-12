@@ -9,7 +9,7 @@ services:
       - PYTHONUNBUFFERED=1
 
   frontend:
-    build: .  # ルートディレクトリでビルド
+    build: .
     ports:
       - "3000:3000"
     volumes:
