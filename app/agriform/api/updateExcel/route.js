@@ -1,6 +1,5 @@
 export const runtime = "nodejs";
 
-import ExcelJS from "exceljs";
 import fs from "fs";
 import path from "path";
 
@@ -80,7 +79,9 @@ export async function POST(req) {
     }
 
     // === (3) ExcelJSでテンプレートをロード ===
-    const workbook = new ExcelJS.Workbook();
+    // `exceljs` を動的インポートすることで、Next/Turbopack のビルド時解決問題を回避します
+    const { Workbook } = await import('exceljs');
+    const workbook = new Workbook();
     await workbook.xlsx.readFile(templatePath);
     const worksheet = workbook.getWorksheet(1); // 最初のシート
 
