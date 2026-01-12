@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
   // まずは分かりやすく files/ を外してもOK（どちらでも動く）
   const objectPath = `files/${userId}/${name}`;
 
-  const { data, error } = await supabase.storage
+  const { data, error } = await supabaseAdmin.storage
     .from("documents")
     .upload(objectPath, buffer, {
       upsert: true,

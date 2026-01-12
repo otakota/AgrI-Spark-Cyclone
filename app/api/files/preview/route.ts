@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -26,7 +26,7 @@ export async function GET(req: Request) {
   }
 
   // 期限付きURL（例：60秒）
-  const { data, error } = await supabase.storage
+  const { data, error } = await supabaseAdmin.storage
     .from("documents")
     .createSignedUrl(path, 60);
 

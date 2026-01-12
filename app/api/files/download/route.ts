@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "@/app/_utils/next-auth-options";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
@@ -18,7 +18,7 @@ export async function GET(req: Request) {
 
   const filePath = `${userId}/${fileName}`;
 
-  const { data, error } = await supabase.storage
+  const { data, error } = await supabaseAdmin.storage
     .from("documents")
     .createSignedUrl(`files/${filePath}`, 60 * 60);
 
