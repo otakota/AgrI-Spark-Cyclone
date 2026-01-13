@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
 const guestOnlyRoutes = ['/', '/login'];
-const authOnlyRoutes = ['/home', '/agriform'];
+const authOnlyRoutes = ['/home', '/agriform', '/files'];
 
 export async function middleware(req: NextRequest) {
     const token = await getToken({ req });

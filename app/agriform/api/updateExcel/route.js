@@ -43,6 +43,7 @@ export async function POST(req) {
       applicantName,
       birthDate,
       age,
+      phoneNumber,
       corpEstablishedDate,
       farmCity,
       businessStartDate,
@@ -89,7 +90,6 @@ export async function POST(req) {
       lands = [],
       rentallands = [],
       machines = [],
-      phoneNumber = "",
       farmingType,
       inheritScope,
     } = body;
@@ -254,7 +254,7 @@ export async function POST(req) {
       worksheet.getCell(`AG${r}`).value = l.targetArea ? Number(l.targetArea) : null;
     });
 
-    const RENTLANDS_START_ROW = 56;
+    const RENTLANDS_START_ROW = 54;
     rentallands.forEach((l, i) => {
       const r = RENTLANDS_START_ROW + i;
       worksheet.getCell(`I${r}`).value = l.landType || "";

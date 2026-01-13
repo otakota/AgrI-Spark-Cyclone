@@ -1,12 +1,12 @@
-import { optional, z } from 'zod'
+import { z } from 'zod'
 
 //作物名、生産量など
 const CropRowSchema = z.object({
   name: z.string().min(1, { message: "必須" }),
   areaCurrent: z.string().optional(), 
   productionCurrent: z.string().optional(), 
-  areaTarget: z.string().min(1, { message: "必須" }), 
-  productionTarget: z.string().min(1, { message: "必須" }), 
+  areaTarget: z.string().optional(), 
+  productionTarget: z.string().optional(), 
 });
 
 //所有地
@@ -19,10 +19,10 @@ const LandRowSchema = z.object({
 
 //借入地
 const rentalSchema = z.object({
-  landType: z.string().min(1, { message: "必須" }),
-  location: z.string().min(1, { message: "必須" }),
+  landType: z.string().optional(),
+  location: z.string().optional(),
   currentArea: z.string().optional(),
-  targetArea: z.string().min(1, { message: "必須" }),
+  targetArea: z.string().optional(),
 });
 
 //特定作業委託
@@ -96,13 +96,14 @@ export const formSchema = z.object({
   applicantName: z.string().min(1, { message: "必須" }),
   age: z.string().min(1, { message: "必須"}),
   corpEstablishedDate:z.string().optional(),
+  phoneNumber: z.string().min(1, { message: "必須" }),
   //就業計画
   farmCity: z.string().min(1, { message: "必須" }),
   businessStartDate: z.string().min(1, { message: "必須" }),
   farmingType: z.string().nonempty({ message: "就農形態を選択してください"}),
-  inheritScope: z.string().nonempty({ message: "必須"}),
-  inheritPeriodYears: z.string().min(1, { message: "必須" }),
-  inheritPeriodMonths: z.string().min(1, { message: "必須" }),
+  inheritScope: z.string().optional(),
+  inheritPeriodYears: z.string().optional(),
+  inheritPeriodMonths: z.string().optional(),
   targetFarmingType: z.string().min(1, { message: "必須" }), //テキスト形式にしているが選択できるようにする？
   futurePlan: z.string().min(1, { message: "必須" }),
   //経営の構想
@@ -113,8 +114,8 @@ export const formSchema = z.object({
   //作物名、生産量など
   crops: z.array(CropRowSchema).min(1, { message: "必須" }),
 
-  sumAreaCurrent: z.string().optional(), 
-  sumProductionCurrent: z.string().optional(), 
+  sumAreaCurrent: z.string().min(1, { message: "必須" }), //同じやつ２個ある
+  sumProductionCurrent: z.string().min(1, { message: "必須" }), 
   sumAreaTarget: z.string().min(1, { message: "必須" }), 
   sumProductionTarget: z.string().min(1, { message: "必須" }), 
 
@@ -125,10 +126,10 @@ export const formSchema = z.object({
 
   business: z.array(BusinessSchema).min(1, { message: "必須" }),
 
-  sumAreacurrent: z.string().optional(),
-  sumAreatarget: z.string().optional(),
-  kanzancurrent: z.string().optional(),
-  kanzantarget: z.string().optional(),
+  sumAreacurrent: z.string().min(1, { message: "必須" }), //同じやつ２個ある
+  sumAreatarget: z.string().min(1, { message: "必須" }),
+  kanzancurrent: z.string().min(1, { message: "必須" }),
+  kanzantarget: z.string().min(1, { message: "必須" }),
 
 
   machines: z.array(MachineRowSchema).min(1, { message: "必須" }),
@@ -141,23 +142,23 @@ export const formSchema = z.object({
   measures: z.array(MeasureRowSchema).min(1, { message: "必須" }),
   members: z.array(MemberRowSchema).min(1, {message: "必須"}),
   //雇用者の人数
-  currentmember: z.string().optional(),
-  targetmember: z.string().optional(),
-  emergencycurrentmember: z.string().optional(),
-  emergencytargetmember: z.string().optional(),
-  sumcurrentmember: z.string().optional(),
-  sumtargetmember: z.string().optional(),
+  currentmember: z.string().min(1, { message: "必須" }),
+  targetmember: z.string().min(1, { message: "必須" }),
+  emergencycurrentmember: z.string().min(1, { message: "必須" }),
+  emergencytargetmember: z.string().min(1, { message: "必須" }),
+  sumcurrentmember: z.string().min(1, { message: "必須" }),
+  sumtargetmember: z.string().min(1, { message: "必須" }),
   //経歴
   jobdetails: z.string().min(1, { message: "必須" }),
-  companyname: z.string().min(1, { message: "必須" }),
-  companystartdate: z.string().min(1, { message: "必須" }),
-  companyenddate: z.string().min(1, { message: "必須" }),
-  companyAdress: z.string().min(1, { message: "必須" }),
-  retirementDate: z.string().min(1, { message: "必須" }),
+  companyname: z.string().optional(),
+  companystartdate: z.string().optional(),
+  companyenddate: z.string().optional(),
+  companyAdress: z.string().optional(),
+  retirementDate: z.string().optional(),
   qualification: z.string().max(255, { message: "255文字以内で記入してください"}).optional(),
   skillAgricultural: z.string().max(255, { message: "255文字以内で記入してください"}).optional(),
   //研修
-  trainingname: z.string().optional(),
+  trainingname: z.string().min(1, { message: "必須" }),
   trainingAdress: z.string().optional(),
   trainingSection: z.string().optional(),
   trainingStartDate: z.string().optional(),
