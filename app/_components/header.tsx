@@ -104,6 +104,22 @@ const Header = ({ session }: { session: Session | null }) => {
             申請書作成
           </Link>
 
+          <Link
+            href="/simulation"
+            className="block px-4 py-2 text-lg font-medium rounded hover:bg-gray-200 dark:hover:bg-gray-700"
+            onClick={() => setOpen(false)}
+          >
+            収支予測
+          </Link>
+
+          <Link
+            href="/files"
+            className="block px-4 py-2 text-lg font-medium rounded hover:bg-gray-200 dark:hover:bg-gray-700"
+            onClick={() => setOpen(false)}
+          >
+            申請書リスト
+          </Link>
+
           {/* 他に追加したい項目があればここに書く */}
         </nav>
       </aside>

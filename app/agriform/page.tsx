@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form"
 import { Form } from "@/components/ui/form"
 import { InputStep } from "@/components/form/InputStep";
 import { ConfirmStep } from "@/components/form/ConfirmStep";
+import { useRouter } from 'next/navigation';
 // schema
 import { formSchema, FormValues } from '@/components/schemas/contactFormSchema';
 
@@ -14,6 +15,7 @@ export default function ProfileForm() {
   const [step, setStep] = useState(1); // 1:入力, 2:確認
   const [formData, setFormData] = useState<FormValues | null>(null);
   const [generatedPath, setGeneratedPath] = useState<string | null>(null);
+  const router = useRouter();
 
 
   const form = useForm<FormValues>({
@@ -190,6 +192,9 @@ export default function ProfileForm() {
         setGeneratedPath(result.path); // 例: files/<userId>/keikaku_....xlsx
         console.log("送信成功:", result);
         alert("申請を送信しました！ Excel ファイルへの書き込みも完了しています。");
+
+        //fileを確認するページに遷移
+        router.push('/files'); 
 
         // 必要に応じてフォームリセットやステップを戻す
         setStep(1);
