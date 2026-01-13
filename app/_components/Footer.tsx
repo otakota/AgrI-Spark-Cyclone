@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="container mx-auto grid gap-4 py-8 md:grid-cols-2">
         <div>
           <div className="flex items-center gap-2">
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-gradient-to-br from-green-500 to-emerald-600 text-white font-bold">A</span>
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-linear-to-br from-green-500 to-emerald-600 text-white font-bold">A</span>
             <span className="text-lg font-extrabold tracking-tight">AgriSparkCyclone</span>
           </div>
           <p className="mt-2 text-sm text-muted-foreground">

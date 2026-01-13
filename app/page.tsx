@@ -27,26 +27,26 @@ export default function Index() {
           <div className="max-w-xl">
             <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
               新規就農者のための
-              <span className="bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text text-transparent">AgriSparkCyclone</span>
+              <span className="bg-linear-to-r from-emerald-600 to-green-500 bg-clip-text text-transparent">AgriSparkCyclone</span>
             </h1>
             <p className="mt-5 text-lg text-muted-foreground">
               「全国共通の申請書」を自動入力。さらにAIが作物別に耕地面積から収支予測を行い、就農計画を強力にサポートします。
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="/agriform" className="inline-flex items-center justify-center rounded-md bg-gradient-to-r  from-emerald-600 to-green-500 px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:to-green-700">
+              <a href="/agriform" className="inline-flex items-center justify-center rounded-md bg-linear-to-r from-emerald-600 to-green-500 px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:to-green-700">
                 申請書を作成する
               </a>
-              <a href="/simulation" className="inline-flex items-center justify-center rounded-md bg-gradient-to-r  from-emerald-600 to-green-500 px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:to-green-700">
+              <a href="/simulation" className="inline-flex items-center justify-center rounded-md bg-linear-to-r from-emerald-600 to-green-500 px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:to-green-700">
                 収支予測を試す
               </a>
             </div>
             <p className="mt-3 text-xs text-muted-foreground">{exampleFromServer}</p>
           </div>
           <div className="relative w-full max-w-xl">
-            <div className="aspect-[4/3] overflow-hidden rounded-xl border bg-gradient-to-br from-green-50 to-emerald-100 p-6 shadow-lg dark:from-gray-800 dark:to-gray-900">
+            <div className="aspect-4/3 overflow-hidden rounded-xl border bg-linear-to-br from-green-50 to-emerald-100 p-6 shadow-lg dark:from-gray-800 dark:to-gray-900">
               <div className="grid h-full w-full place-items-center text-center">
                 <div>
-                  <div className="mx-auto mb-4 h-14 w-14 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 p-3 text-white shadow">
+                  <div className="mx-auto mb-4 h-14 w-14 rounded-lg bg-linear-to-br from-green-500 to-emerald-600 p-3 text-white shadow">
                     <svg viewBox="0 0 24 24" fill="none" className="h-full w-full"><path d="M4 20c4-8 12-8 16 0" stroke="currentColor" strokeWidth="1.5" /><path d="M8 14c2-4 6-4 8 0" stroke="currentColor" strokeWidth="1.5" /><circle cx="12" cy="6" r="2" stroke="currentColor" strokeWidth="1.5" /></svg>
                   </div>
                   <h3 className="text-xl font-bold">AI収支予測 + 申請書自動入力</h3>

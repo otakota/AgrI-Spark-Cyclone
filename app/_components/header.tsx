@@ -14,7 +14,7 @@ const Header = ({ session }: { session: Session | null }) => {
   return (
     <>
       {/* ===== Header ===== */}
-      <header className="sticky top-0 z-40 w-full border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-gray-900/80 dark:supports-[backdrop-filter]:bg-gray-900/60">
+      <header className="sticky top-0 z-40 w-full border-b bg-white/80 backdrop-blur supports-backdrop-filter:bg-white/60 dark:bg-gray-900/80 dark:supports-backdrop-filter:bg-gray-900/60">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
 
           {/* ハンバーガー */}
@@ -27,7 +27,7 @@ const Header = ({ session }: { session: Session | null }) => {
 
           {/* ロゴ */}
           <Link href="/" className="flex items-center gap-2">
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-gradient-to-br from-green-500 to-emerald-600 text-white font-bold">
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-linear-to-br from-green-500 to-emerald-600 text-white font-bold">
               A
             </span>
             <span className="text-lg font-extrabold tracking-tight">
@@ -48,14 +48,14 @@ const Header = ({ session }: { session: Session | null }) => {
                 />
                 <Button
                   onClick={() => signOut()}
-                  className="rounded-lg bg-gray-200 px-4 py-[7px] text-black hover:bg-gray-300"
+                  className="rounded-lg bg-gray-200 px-4 py-1.75 text-black hover:bg-gray-300"
                 >
                   ログアウト
                 </Button>
               </>
             ) : (
               <Link href="/login">
-                <Button className="rounded-lg bg-green-500 px-4 py-[7px] text-white hover:bg-green-700">
+                <Button className="rounded-lg bg-green-500 px-4 py-1.75 text-white hover:bg-green-700">
                   ログイン
                 </Button>
               </Link>
@@ -74,7 +74,7 @@ const Header = ({ session }: { session: Session | null }) => {
 
       {/* ===== サイドバー本体 ===== */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-900 shadow-lg z-[60] p-6 transition-transform duration-300 ${
+        className={`fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-900 shadow-lg z-60 p-6 transition-transform duration-300 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
