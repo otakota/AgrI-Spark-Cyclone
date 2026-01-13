@@ -8,7 +8,7 @@ import { InputStep } from "@/components/form/InputStep";
 import { ConfirmStep } from "@/components/form/ConfirmStep";
 import { useRouter } from 'next/navigation';
 // schema
-import { formSchema, FormValues } from '@/components/schemas/contactFormSchema';
+import { formSchema, FormValues } from '@/components/form/schemas/contactFormSchema';
 
 
 export default function ProfileForm() {
@@ -20,145 +20,7 @@ export default function ProfileForm() {
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      birthDate: "",
-      applicationDate: "",
-      mayor: "",
-      applicantAddress: "",
-      applicantName: "",
-      age: "",
-      phoneNumber: "",
-      corpEstablishedDate: "",
-
-      farmCity: "",
-      businessStartDate: "",
-      farmingType: "",
-      inheritScope: "",
-      inheritPeriodYears: "",
-      inheritPeriodMonths: "",
-      targetFarmingType: "",
-      futurePlan: "",
-
-      incomeCurrent: "",
-      incomeTarget: "",
-      hoursCurrent: "",
-      hoursTarget: "",
-
-      crops: [{
-        name: "",
-        areaCurrent: "",
-        productionCurrent: "",
-        areaTarget: "",
-        productionTarget: "",
-      }],
-
-      sumAreaCurrent: "",
-      sumProductionCurrent: "",
-      sumAreaTarget: "",
-      sumProductionTarget: "",
-
-      lands: [{
-        landType: "",
-        location: "",
-        currentArea: "",
-        targetArea: "",
-      }],
-
-      rentallands: [{
-        landType: "",
-        location: "",
-        currentArea: "",
-        targetArea: "",
-      }],
-
-      specialwork: [{
-        crop: "",
-        work: "",
-        currentland: "",
-        currentproduction: "",
-        targetland: "",
-        targetproduction: "",
-      }],
-
-      outsourcing: [{
-        crop: "",
-        work: "",
-        currentArea: "",
-        targetArea: "",
-      }],
-
-      business: [{
-        name: "",
-        content: "",
-        currentbusiness: "",
-        targetbusiness: "",
-      }],
-
-      sumAreacurrent: "",
-      sumAreatarget: "",
-      kanzancurrent: "",
-      kanzantarget: "",
-
-      machines: [{
-        name: "",
-        currentSpec: "",
-        currentUnits: "",
-        targetSpec: "",
-        targetUnits: "",
-      }],
-
-      targetAgricultural: "",
-      targetemployee: "",
-
-      measures: [{
-        title: "",
-        spec: "",
-        when: "",
-        cost: "",
-        fund: "",
-      }],
-
-      members: [{
-        name: "",
-        relationOrRole: "",
-        age: "",
-        currentTask: "",
-        currentDays: "",
-        futureTask: "",
-        futureDays: "",
-      }],
-
-      currentmember: "",
-      targetmember: "",
-      emergencycurrentmember: "",
-      emergencytargetmember: "",
-      sumcurrentmember: "",
-      sumtargetmember: "",
-
-      jobdetails: "",
-      companyname: "",
-      companystartdate: "",
-      companyenddate: "",
-      companyAdress: "",
-      retirementDate: "",
-      qualification: "",
-      skillAgricultural: "",
-
-      trainingname: "",
-      trainingAdress: "",
-      trainingSection: "",
-      trainingStartDate: "",
-      trainingEndDate: "",
-      trainingContent: "",
-      trainingAssist: "",
-
-      certification: [{
-        Certificationname: "",
-        CertificationDate: "",
-        biko: "",
-      }],
-    }
+    defaultValues: FORM_DEFAULT_VALUES
   })
 
   console.log(form.formState.errors);
@@ -194,7 +56,7 @@ export default function ProfileForm() {
         alert("申請を送信しました！ Excel ファイルへの書き込みも完了しています。");
 
         //fileを確認するページに遷移
-        router.push('/files'); 
+        router.push('/files');
 
         // 必要に応じてフォームリセットやステップを戻す
         setStep(1);
@@ -249,3 +111,145 @@ export default function ProfileForm() {
     </div>
   )
 }
+
+// フォームのデフォルト値
+const FORM_DEFAULT_VALUES: FormValues = {
+  name: "",
+  birthDate: "",
+  applicationDate: "",
+  mayor: "",
+  applicantAddress: "",
+  applicantName: "",
+  age: "",
+  phoneNumber: "",
+  corpEstablishedDate: "",
+
+  farmCity: "",
+  businessStartDate: "",
+  farmingType: "",
+  inheritScope: "",
+  inheritPeriodYears: "",
+  inheritPeriodMonths: "",
+  targetFarmingType: "",
+  futurePlan: "",
+
+  incomeCurrent: "",
+  incomeTarget: "",
+  hoursCurrent: "",
+  hoursTarget: "",
+
+  crops: [{
+    name: "",
+    areaCurrent: "",
+    productionCurrent: "",
+    areaTarget: "",
+    productionTarget: "",
+  }],
+
+  sumAreaCurrent: "",
+  sumProductionCurrent: "",
+  sumAreaTarget: "",
+  sumProductionTarget: "",
+
+  lands: [{
+    landType: "",
+    location: "",
+    currentArea: "",
+    targetArea: "",
+  }],
+
+  rentallands: [{
+    landType: "",
+    location: "",
+    currentArea: "",
+    targetArea: "",
+  }],
+
+  specialwork: [{
+    crop: "",
+    work: "",
+    currentland: "",
+    currentproduction: "",
+    targetland: "",
+    targetproduction: "",
+  }],
+
+  outsourcing: [{
+    crop: "",
+    work: "",
+    currentArea: "",
+    targetArea: "",
+  }],
+
+  business: [{
+    name: "",
+    content: "",
+    currentbusiness: "",
+    targetbusiness: "",
+  }],
+
+  sumAreacurrent: "",
+  sumAreatarget: "",
+  kanzancurrent: "",
+  kanzantarget: "",
+
+  machines: [{
+    name: "",
+    currentSpec: "",
+    currentUnits: "",
+    targetSpec: "",
+    targetUnits: "",
+  }],
+
+  targetAgricultural: "",
+  targetemployee: "",
+
+  measures: [{
+    title: "",
+    spec: "",
+    when: "",
+    cost: "",
+    fund: "",
+  }],
+
+  members: [{
+    name: "",
+    relationOrRole: "",
+    age: "",
+    currentTask: "",
+    currentDays: "",
+    futureTask: "",
+    futureDays: "",
+  }],
+
+  currentmember: "",
+  targetmember: "",
+  emergencycurrentmember: "",
+  emergencytargetmember: "",
+  sumcurrentmember: "",
+  sumtargetmember: "",
+
+  jobdetails: "",
+  companyname: "",
+  companystartdate: "",
+  companyenddate: "",
+  companyAdress: "",
+  retirementDate: "",
+  qualification: "",
+  skillAgricultural: "",
+
+  trainingname: "",
+  trainingAdress: "",
+  trainingSection: "",
+  trainingStartDate: "",
+  trainingEndDate: "",
+  trainingContent: "",
+  trainingAssist: "",
+
+  certification: [{
+    Certificationname: "",
+    CertificationDate: "",
+    biko: "",
+  }],
+}
+

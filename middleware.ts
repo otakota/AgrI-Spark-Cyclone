@@ -2,7 +2,7 @@ import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
-const guestOnlyRoutes = ['/', '/login', '/simulation'];
+const guestOnlyRoutes = ['/', '/login'];
 const authOnlyRoutes = ['/home', '/agriform', '/files'];
 
 export async function middleware(req: NextRequest) {

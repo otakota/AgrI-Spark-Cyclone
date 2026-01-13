@@ -33,6 +33,9 @@ export default function Index() {
               「全国共通の申請書」を自動入力。さらにAIが作物別に耕地面積から収支予測を行い、就農計画を強力にサポートします。
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
+              <a href="/agriform" className="inline-flex items-center justify-center rounded-md bg-gradient-to-r  from-emerald-600 to-green-500 px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:to-green-700">
+                申請書を作成する
+              </a>
               <a href="/simulation" className="inline-flex items-center justify-center rounded-md bg-gradient-to-r  from-emerald-600 to-green-500 px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:to-green-700">
                 収支予測を試す
               </a>
