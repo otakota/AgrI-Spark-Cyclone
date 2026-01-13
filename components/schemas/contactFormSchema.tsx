@@ -95,6 +95,7 @@ export const formSchema = z.object({
   applicantAddress:z.string().min(1, { message: "必須" }),
   applicantName: z.string().min(1, { message: "必須" }),
   age: z.string().min(1, { message: "必須"}),
+  phoneNumber: z.string().min(1, { message: "必須"}),
   corpEstablishedDate:z.string().optional(),
   //就業計画
   farmCity: z.string().min(1, { message: "必須" }),

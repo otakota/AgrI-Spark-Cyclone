@@ -42,6 +42,7 @@ export const InputStep: React.FC<InputStepProps> = ({ form, onSubmit }) => {
           <ReusableFormField name="applicantName"       label="氏名（名称・代表者）"  placeholder="農林 太郎" control={form.control} className="md:col-span-3" />
           <ReusableFormField name="mayor"               label="市長"  placeholder="例：○○市長 殿" control={form.control} className="md:col-span-3" />
           <ReusableFormField name="applicantAddress"    label="申請者住所"  placeholder="○○県○○市○丁目○-○" control={form.control} className="md:col-span-3" />
+          <ReusableFormField name="phoneNumber"    label="電話番号" control={form.control} className="md:col-span-3" />
           <ReusableFormField name="corpEstablishedDate" label="法人設立年月日（法人の場合のみ）" type="date" control={form.control}  />
         </CardContent>
       </Card>
