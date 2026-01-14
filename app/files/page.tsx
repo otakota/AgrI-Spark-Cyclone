@@ -137,7 +137,7 @@ export default function FilesGalleryPage() {
     <div className="h-[calc(100vh-0px)] p-6">
       <div className="max-w-6xl mx-auto h-full flex flex-col gap-4">
         <div className="flex items-center justify-between gap-3">
-          <h1 className="text-2xl font-bold">Files</h1>
+          <h1 className="text-2xl font-bold">作成した申請書</h1>
 
           <div className="flex items-center gap-2">
   <select
