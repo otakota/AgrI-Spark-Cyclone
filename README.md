@@ -17,10 +17,12 @@ AI を活用して **新規就農者の申請・準備を支援**する Web ア�
 
 ## 技術スタック
 
-- Frontend: Next.js 14 / TypeScript / Tailwind CSS
+- Frontend: Next.js 14 / TypeScript / React / Tailwind CSS
 - Package Manager: pnpm
 - Deploy: Vercel
-- Others: （※ backend_ai / excel_user が何をしているか一言で）
+- DB: Supabase
+- Others: Docker
+- API: OpenAIAPI
 
 ---
 
@@ -58,4 +60,5 @@ cp .env.example .env.local
 
 # 起動
 pnpm dev
+
 
