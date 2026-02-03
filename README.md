@@ -1,65 +1,60 @@
 # AgrI-Spark-Cyclone
 
-Next.js + TypeScript プロジェクト。  
-このリポジトリでは **pnpm** を使用して依存関係を管理しています。
+AI を活用して **新規就農者の申請・準備を支援**する Web アプリです。  
+フォーム入力 → 必要書類（申請書/下書き等）の自動生成を目指します。  
+（※ 生成物の形式：PDF / Excel / テキストなど、実装に合わせて追記）
 
 ---
 
-## プロジェクト概要
+## 主な機能
 
-**AgrI-Spark-Cyclone** は、**AIを活用した新規就農支援を目的とした Web アプリ**です。  
-フォーム形式で必要情報を入力するすることで電子で申請書を発行することができます
-
----
-
-## 技術構成
-
-| 項目 | 使用技術 |
-|------|------------|
-| フレームワーク | **Next.js 14** |
-| 言語 | **TypeScript** |
-| パッケージ管理 | **pnpm** |
-| スタイル/UI | **Tailwind CSS** |
-| デプロイ | **Vercel** |
+- フォームで必要情報を入力（就農計画/自己情報/資金計画など）  
+- 入力内容をもとに AI が申請書（または申請支援文書）の下書きを生成  
+- （任意）Excel/PDF 等で出力・ダウンロード  
+- （任意）履歴の保存、編集、再生成
 
 ---
 
-## ディレクトリ構成（例）
+## 技術スタック
+
+- Frontend: Next.js 14 / TypeScript / Tailwind CSS
+- Package Manager: pnpm
+- Deploy: Vercel
+- Others: （※ backend_ai / excel_user が何をしているか一言で）
+
+---
+
+## ディレクトリ構成（概要）
+
+- `app/` : Next.js App Router（ページ/レイアウト）
+- `components/` : UI コンポーネント
+- `lib/` : ユーティリティ
+- `types/` : 型定義
+- `shared/` : 共有ロジック（※実態に合わせて）
+- `backend_ai/` : AI/バックエンド関連（※役割を明記）
+- `excel_user/` : Excel 出力など（※役割を明記）
+
+---
+
+## クイックスタート（ローカル）
+
+### 必要要件
+- Node.js（`.nvmrc` のバージョン推奨）
+- pnpm
+
+### セットアップ
 
 ```bash
-app/
- ├─ page.tsx           # ルートページ
- ├─ layout.tsx         # 共通レイアウト
- ├─ components/        # UIコンポーネント群
- ├─ lib/               # ユーティリティ関数
- └─ styles/            # グローバルCSS
-```
----
-
-## 開発環境セットアップ
-
-### 1. Node.js のバージョンを合わせる
-このプロジェクトでは **nvm** によって Node.js のバージョンを管理しています。  
-`.nvmrc` に記載されているバージョンを使用してください。
-
-```bash
+# Node バージョンを合わせる（nvm 使用時）
 nvm install
 nvm use
-```
-### 2.pnpmをinstallしていない場合
 
-```bash
-npm install -g pnpm 
-```
-
-### 3.依存関係のインストール
-```bash
+# 依存関係
 pnpm install
-```
 
-### 4.開発サーバーを起動
-```bash
+# 環境変数（例）
+cp .env.example .env.local
+# .env.local を編集（※後述）
+
+# 起動
 pnpm dev
-```
-https://localhost:3000
-を開いて動作確認してください。
